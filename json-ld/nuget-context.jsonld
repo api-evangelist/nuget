@@ -1,0 +1,160 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "nuget": "https://schema.nuget.org/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "catalog": "https://schema.nuget.org/catalog#",
+
+    "Package": {
+      "@id": "nuget:Package",
+      "@context": {
+        "id": "nuget:id",
+        "version": "nuget:version",
+        "title": "schema:name",
+        "description": "schema:description",
+        "summary": "schema:abstract",
+        "authors": "schema:author",
+        "owners": "nuget:owners",
+        "tags": "schema:keywords",
+        "language": "schema:inLanguage",
+        "iconUrl": {
+          "@id": "schema:thumbnailUrl",
+          "@type": "@id"
+        },
+        "licenseUrl": {
+          "@id": "schema:license",
+          "@type": "@id"
+        },
+        "licenseExpression": "nuget:licenseExpression",
+        "projectUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "readmeUrl": {
+          "@id": "nuget:readmeUrl",
+          "@type": "@id"
+        },
+        "registration": {
+          "@id": "nuget:registration",
+          "@type": "@id"
+        },
+        "packageContent": {
+          "@id": "nuget:packageContent",
+          "@type": "@id"
+        },
+        "listed": "nuget:listed",
+        "verified": "nuget:verified",
+        "published": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "totalDownloads": "nuget:totalDownloads",
+        "requireLicenseAcceptance": "nuget:requireLicenseAcceptance",
+        "minClientVersion": "nuget:minClientVersion",
+        "isPrerelease": "nuget:isPrerelease",
+        "packageHash": "nuget:packageHash",
+        "packageHashAlgorithm": "nuget:packageHashAlgorithm",
+        "packageSize": "nuget:packageSize",
+        "versions": {
+          "@id": "nuget:versions",
+          "@container": "@set"
+        },
+        "dependencyGroups": {
+          "@id": "nuget:dependencyGroups",
+          "@container": "@set"
+        },
+        "packageTypes": {
+          "@id": "nuget:packageTypes",
+          "@container": "@set"
+        },
+        "deprecation": "nuget:deprecation",
+        "vulnerabilities": {
+          "@id": "nuget:vulnerabilities",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "PackageVersion": {
+      "@id": "nuget:PackageVersion",
+      "@context": {
+        "version": "nuget:version",
+        "downloads": "nuget:downloads"
+      }
+    },
+
+    "DependencyGroup": {
+      "@id": "nuget:DependencyGroup",
+      "@context": {
+        "targetFramework": "nuget:targetFramework",
+        "dependencies": {
+          "@id": "nuget:dependencies",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "PackageDependency": {
+      "@id": "nuget:PackageDependency",
+      "@context": {
+        "id": "nuget:id",
+        "range": "nuget:range",
+        "registration": {
+          "@id": "nuget:registration",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "PackageType": {
+      "@id": "nuget:PackageType",
+      "@context": {
+        "name": "schema:name",
+        "version": "nuget:version"
+      }
+    },
+
+    "Deprecation": {
+      "@id": "nuget:Deprecation",
+      "@context": {
+        "reasons": "nuget:reasons",
+        "message": "nuget:message",
+        "alternatePackage": "nuget:alternatePackage"
+      }
+    },
+
+    "Vulnerability": {
+      "@id": "nuget:Vulnerability",
+      "@context": {
+        "advisoryUrl": {
+          "@id": "nuget:advisoryUrl",
+          "@type": "@id"
+        },
+        "severity": "nuget:severity"
+      }
+    },
+
+    "CatalogEvent": {
+      "@id": "catalog:CatalogEvent",
+      "@context": {
+        "commitId": "catalog:commitId",
+        "commitTimeStamp": {
+          "@id": "catalog:commitTimeStamp",
+          "@type": "xsd:dateTime"
+        },
+        "id": "nuget:id",
+        "version": "nuget:version",
+        "published": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

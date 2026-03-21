@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nuget.org/schemas/nuget/catalog-event.json",
+  "title": "NuGet Catalog Event",
+  "description": "A catalog event (leaf) in the NuGet Catalog API representing either a package details snapshot or a package deletion record. The catalog records the full history of all package operations on nuget.org.",
+  "type": "object",
+  "required": ["@type", "catalog:commitId", "catalog:commitTimeStamp", "id", "published", "version"],
+  "properties": {
+    "@type": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ],
+      "description": "The type(s) of the catalog item. Includes either PackageDetails or PackageDelete, optionally with catalog:Permalink."
+    },
+    "catalog:commitId": {
+      "type": "string",
+      "description": "A unique identifier for the commit that produced this catalog item."
+    },
+    "catalog:commitTimeStamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The ISO 8601 timestamp when this item was committed to the catalog."
+    },
+    "id": {
+      "type": "string",
+      "description": "The package ID of the catalog item."
+    },
+    "version": {
+      "type": "string",
+      "description": "The package version string. For PackageDetails, this is normalized. For PackageDelete, this is the original .nuspec version."
+    },
+    "published": {
+      "type": "string",
+      "format": "date-time",
+      "description": "For PackageDetails, when the package was last listed. For PackageDelete, when the package was deleted."
+    },
+    "originalId": {
+      "type": "string",
+      "description": "The original cased package ID. Present only in PackageDelete items."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the package was first created. Present only in PackageDetails items."
+    },
+    "authors": {
+      "type": "string",
+      "description": "The package authors. Present only in PackageDetails items."
+    },
+    "description": {
+      "type": "string",
+      "description": "The package description. Present only in PackageDetails items."
+    },
+    "isPrerelease": {
+      "type": "boolean",
+      "description": "Whether the version is a prerelease. Present only in PackageDetails items."
+    },
+    "listed": {
+      "type": "boolean",
+      "description": "Whether the package is listed. Present only in PackageDetails items."
+    },
+    "packageHash": {
+      "type": "string",
+      "description": "Base 64 encoded hash of the .nupkg file. Present only in PackageDetails items."
+    },
+    "packageHashAlgorithm": {
+      "type": "string",
+      "description": "The hash algorithm used, typically SHA512. Present only in PackageDetails items."
+    },
+    "packageSize": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Size of the .nupkg file in bytes. Present only in PackageDetails items."
+    },
+    "verbatimVersion": {
+      "type": "string",
+      "description": "The version string as originally found in the .nuspec. Present only in PackageDetails items."
+    }
+  }
+}

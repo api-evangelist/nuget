@@ -1,0 +1,144 @@
+aid: nuget
+url: https://raw.githubusercontent.com/api-evangelist/nuget/refs/heads/main/apis.yml
+modified: '2026-03-20'
+apis:
+  - aid: nuget:server-api
+    name: NuGet Server API
+    tags:
+      - Package Management
+      - .NET
+      - Packages
+      - Registry
+      - Dependencies
+      - Software Distribution
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.nuget.org/v3
+    humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
+    properties:
+      - url: https://learn.microsoft.com/en-us/nuget/api/overview
+        type: Documentation
+      - url: https://learn.microsoft.com/en-us/nuget/api/service-index
+        type: Documentation
+      - url: https://github.com/NuGet/NuGetGallery
+        type: GitHub Repository
+      - url: openapi/nuget-server-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The NuGet Server API is a set of HTTP endpoints used to download packages,
+      fetch metadata, publish new packages, and perform other operations against
+      a NuGet package source. The V3 API uses JSON as its underlying media type
+      and is accessed through a service index located at
+      https://api.nuget.org/v3/index.json, which enumerates all available
+      resources and capabilities. Key resources include SearchQueryService for
+      searching packages, RegistrationsBaseUrl for fetching package metadata,
+      PackageBaseAddress for downloading package content, and PackagePublish for
+      pushing new packages to the feed.
+  - aid: nuget:catalog-api
+    name: NuGet Catalog API
+    tags:
+      - Package Management
+      - .NET
+      - Catalog
+      - Event Log
+      - Packages
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.nuget.org/v3
+    humanURL: https://learn.microsoft.com/en-us/nuget/api/catalog-resource
+    properties:
+      - url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource
+        type: Documentation
+      - url: openapi/nuget-catalog-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The NuGet Catalog API is an append-only resource that records the full
+      history of all package events on nuget.org, including packages being
+      added, modified, listed, unlisted, and deleted. It provides a
+      chronologically ordered log of every change to the package source,
+      enabling consumers to build and maintain their own local copy of the
+      entire set of packages available on nuget.org. The Catalog API is
+      particularly useful for building search indexes, maintaining package
+      mirrors, and auditing the history of package operations.
+  - aid: nuget:search-api
+    name: NuGet Search API
+    tags:
+      - Package Management
+      - .NET
+      - Search
+      - Discovery
+      - Packages
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.nuget.org/v3
+    humanURL: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+    properties:
+      - url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+        type: Documentation
+      - url: openapi/nuget-search-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The NuGet Search API allows clients to query for packages available on a
+      NuGet package source using the SearchQueryService resource found in the
+      service index. It supports filtering by keyword, target framework,
+      prerelease status, and package type, and returns paginated results with
+      package metadata including versions, descriptions, download counts, and
+      dependency information. This API powers the search experience in the
+      NuGet client tools within Visual Studio, the dotnet CLI, and the
+      nuget.org website, enabling developers to discover and evaluate packages
+      for their .NET projects.
+  - aid: nuget:package-metadata-api
+    name: NuGet Package Metadata API
+    tags:
+      - Package Management
+      - .NET
+      - Metadata
+      - Package Registry
+      - Versions
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.nuget.org/v3
+    humanURL: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
+    properties:
+      - url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
+        type: Documentation
+      - url: openapi/nuget-package-metadata-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The NuGet Package Metadata API, accessed through the RegistrationsBaseUrl
+      resource, provides detailed metadata about packages available on a NuGet
+      package source. It returns registration information including all
+      available versions of a package, their dependencies, download URLs,
+      descriptions, authors, license information, and deprecation status. The
+      registration data is organized into pages and leaves, allowing efficient
+      retrieval of metadata for packages that may have hundreds of published
+      versions. This API is used by NuGet clients to resolve dependencies and
+      display package details.
+  - aid: nuget:package-content-api
+    name: NuGet Package Content API
+    tags:
+      - Package Management
+      - .NET
+      - Package Download
+      - Content
+      - NuPkg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.nuget.org/v3-flatcontainer
+    humanURL: https://learn.microsoft.com/en-us/nuget/api/package-base-address-resource
+    properties:
+      - url: https://learn.microsoft.com/en-us/nuget/api/package-base-address-resource
+        type: Documentation
+      - url: openapi/nuget-package-content-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The NuGet Package Content API, accessed through the PackageBaseAddress
+      resource, allows clients to download package content files (.nupkg) and
+      package manifests (.nuspec) from a NuGet feed. It uses a flat container
+      structure where packages are organized by lowercase package ID and
+      version, providing direct access to the binary package files. This API
+      also exposes a version index endpoint that lists all available versions
+      for a given package ID, enabling clients to enumerate and download
+      specific package versions efficiently.
+common:
+  - type: JSON-LD
+    url: json-ld/nuget-context.jsonld
+  - type: JSONSchema
+    url: json-schema/nuget-package-schema.json
+  - type: JSONSchema
+    url: json-schema/nuget-catalog-event-schema.json
