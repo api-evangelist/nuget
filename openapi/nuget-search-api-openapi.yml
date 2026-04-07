@@ -22,14 +22,14 @@ servers:
   - url: https://azuresearch-usnc.nuget.org
     description: NuGet.org Search Service (US North Central)
 tags:
-  - name: Search
-    description: >-
-      Search for packages by keyword, filter by various criteria, and retrieve
-      paginated results with full package metadata.
   - name: Autocomplete
     description: >-
       Autocomplete package IDs and enumerate package versions for typeahead
       and discovery features.
+  - name: Search
+    description: >-
+      Search for packages by keyword, filter by various criteria, and retrieve
+      paginated results with full package metadata.
 security: []
 paths:
   /query:

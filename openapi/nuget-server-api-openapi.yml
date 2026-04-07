@@ -26,14 +26,14 @@ servers:
   - url: https://www.nuget.org/api/v2
     description: NuGet.org Package Publish Endpoint
 tags:
-  - name: Service Index
-    description: >-
-      The service index is the entry point for the NuGet V3 API. It is a JSON
-      document that lists all available resources and their capabilities.
   - name: Package Publish
     description: >-
       Endpoints for pushing new packages, deleting or unlisting packages, and
       relisting previously unlisted packages on a NuGet feed.
+  - name: Service Index
+    description: >-
+      The service index is the entry point for the NuGet V3 API. It is a JSON
+      document that lists all available resources and their capabilities.
 security: []
 paths:
   /index.json:
