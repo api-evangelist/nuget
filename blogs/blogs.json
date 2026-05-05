@@ -1,0 +1,13 @@
+{
+  "repo": "nuget",
+  "feeds": [
+    {
+      "source": "https://devblogs.microsoft.com/nuget/",
+      "feed_url": "https://devblogs.microsoft.com/dotnet/category/nuget/feed/",
+      "saved": 10,
+      "title": "NuGet - Category | .NET Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:32:48Z"
+}
