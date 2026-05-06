@@ -4,107 +4,59 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: NuGet
 providerId: nuget
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Package Management
   - .NET
   - Packages
-  - Dependencies
-  - Software Distribution
   - Registry
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the NuGet API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: nuget.org does not publish numeric rate limits for the V3 HTTP API. Reads (PackageBaseAddress,
+  RegistrationsBaseUrl, SearchQueryService) are CDN-fronted via api.nuget.org and tolerate normal client
+  traffic; abusive or scraping traffic is throttled per-IP at the edge. The official client retries up
+  to three times on 5xx responses. Authenticated push operations use X-NuGet-ApiKey and are throttled
+  at the application layer.
+notes: nuget.org does not document numeric rate limits; values below describe official-client behavior
+  rather than published per-second ceilings. Reconciled flag is false until Microsoft publishes specific
+  limits.
+sources:
+  - https://learn.microsoft.com/en-us/nuget/api/overview
+  - https://learn.microsoft.com/en-us/nuget/api/nuget-protocols
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
+  conflict: 409
 limits:
-  - tier: free
-    name: Free Tier Default
+  - name: nuget.org public reads
+    scope: IP
+    metric: varies
+    limit: not numerically published; CDN-throttled per-IP
+    applies:
+      - NuGet Server API
+      - NuGet Catalog API
+      - NuGet Search API
+      - NuGet Package Metadata API
+      - NuGet Package Content API
+  - name: Authenticated push
     scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
+    metric: varies
+    limit: not numerically published; abuse-throttled at the application layer
     applies:
       - NuGet Server API
-      - NuGet Catalog API
-      - NuGet Search API
-      - NuGet Package Metadata API
-      - NuGet Package Content API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - NuGet Server API
-      - NuGet Catalog API
-      - NuGet Search API
-      - NuGet Package Metadata API
-      - NuGet Package Content API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - NuGet Server API
-      - NuGet Catalog API
-      - NuGet Search API
-      - NuGet Package Metadata API
-      - NuGet Package Content API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - NuGet Server API
-      - NuGet Catalog API
-      - NuGet Search API
-      - NuGet Package Metadata API
-      - NuGet Package Content API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - NuGet Server API
-      - NuGet Catalog API
-      - NuGet Search API
-      - NuGet Package Metadata API
-      - NuGet Package Content API
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Client retry behavior
+    description: 'The official NuGet client retries up to three times on 500-level status codes or TCP/DNS
+      errors. Recommended for third-party clients: exponential backoff with jitter on 429/503.'
+  - name: Redirects
+    description: GET responses may return 301/302; clients must follow Location headers and re-issue the
+      GET.
+  - name: Authentication scope
+    description: Only the PackagePublish resource requires authentication via X-NuGet-ApiKey. All other
+      V3 resources on nuget.org accept anonymous requests.
+  - name: Bulk indexing
+    description: Use the Catalog resource (commit-driven page log) rather than scraping search to mirror
+      the registry; this is the supported pattern for full ingestion.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

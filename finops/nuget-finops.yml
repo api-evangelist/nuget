@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,168 +9,126 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: NuGet
 providerId: nuget
-publisherName: NuGet
-serviceCategory: API
+publisherName: .NET Foundation / Microsoft Corporation
+serviceCategory: Developer Tools / Package Registry
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Package Management
   - .NET
   - Packages
-  - Dependencies
-  - Software Distribution
   - Registry
   - FinOps
   - Cost Management
   - FOCUS
-description: FinOps framework definition for the NuGet API surface. Provides a FOCUS-aligned mapping for
-  cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+description: 'FOCUS-aligned FinOps for nuget.org: the public registry is free of charge. Commercial spend
+  for private NuGet feeds is on Azure Artifacts (per-user) or GitHub Packages (per-org), not nuget.org
+  itself.'
+sources:
+  - https://learn.microsoft.com/en-us/nuget/api/overview
+  - https://azure.microsoft.com/en-us/pricing/details/devops/azure-devops-services/
+  - https://github.com/pricing
 principles:
   - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
+    description: nuget.org does not invoice consumers; visibility is about restore cost and time. Track
+      package download bytes, restore duration, and CI cache hit rate. For Azure Artifacts or GitHub Packages,
+      use the respective billing dashboards.
   - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
+    description: Allocate package storage and Actions/Pipelines minutes to the publishing org/team. Tag
+      private feeds by repo or product so each owner sees their share.
   - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
+    description: Cache restored packages in CI (e.g. actions/cache, NuGet.config globalPackagesFolder).
+      Use a proxy feed (Azure Artifacts upstream, JFrog, Sonatype) for high-volume monorepos to reduce
+      egress from nuget.org and avoid throttling.
   - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+    description: Even though nuget.org is free, runaway CI restores cost time and money downstream. Assign
+      an owner for the package cache, restore performance, and any private feed billing.
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Free / Public Service
+  billingFrequency: None
   billingCurrency: USD
   chargeCategories:
     - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
+  chargeFrequency: None
 focusColumns:
   ServiceName: NuGet
-  ServiceCategory: Developer Tools / API
+  ServiceCategory: Developer Tools / Package Registry
   ProviderName: NuGet
-  PublisherName: NuGet
-  InvoiceIssuerName: NuGet
-  PricingCategory: Usage-Based
+  PublisherName: .NET Foundation / Microsoft Corporation
+  InvoiceIssuerName: N/A (free service for public feed)
+  PricingCategory: Free
   PricingUnit: request
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: package_downloads
+    description: Total .nupkg downloads from nuget.org
+    unit: download
+    aggregation: sum
+    dimensions:
+      - package_id
+      - version
+  - name: package_egress_bytes
+    description: Bytes egressed by .nupkg downloads
+    unit: GB
+    aggregation: sum
+    dimensions:
+      - package_id
+  - name: search_requests
+    description: Search and metadata requests
     unit: request
     aggregation: sum
     dimensions:
       - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+  - name: catalog_pages_processed
+    description: Catalog API pages consumed by mirroring/ingestion clients
+    unit: page
     aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
 apis:
   - name: NuGet Server API
-    baseURL: ''
+    baseURL: https://api.nuget.org/v3/index.json
     tags:
       - Package Management
       - .NET
-      - Packages
       - Registry
-      - Dependencies
     serviceName: NuGet Server API
-    serviceCategory: API
+    serviceCategory: Package Registry
   - name: NuGet Catalog API
-    baseURL: ''
+    baseURL: https://api.nuget.org/v3/catalog0/index.json
     tags:
-      - Package Management
-      - .NET
       - Catalog
       - Event Log
-      - Packages
     serviceName: NuGet Catalog API
-    serviceCategory: API
+    serviceCategory: Package Registry
   - name: NuGet Search API
-    baseURL: ''
+    baseURL: https://azuresearch-usnc.nuget.org/query
     tags:
-      - Package Management
-      - .NET
       - Search
       - Discovery
-      - Packages
     serviceName: NuGet Search API
-    serviceCategory: API
+    serviceCategory: Package Registry
   - name: NuGet Package Metadata API
-    baseURL: ''
+    baseURL: https://api.nuget.org/v3/registration5-gz-semver2
     tags:
-      - Package Management
-      - .NET
       - Metadata
-      - Package Registry
       - Versions
     serviceName: NuGet Package Metadata API
-    serviceCategory: API
+    serviceCategory: Package Registry
   - name: NuGet Package Content API
-    baseURL: ''
+    baseURL: https://api.nuget.org/v3-flatcontainer
     tags:
-      - Package Management
-      - .NET
       - Package Download
-      - Content
       - NuPkg
     serviceName: NuGet Package Content API
-    serviceCategory: API
+    serviceCategory: Package Registry
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+  - name: Restore time per CI build
+    metric: ci_restore_seconds / ci_build_count
+    target: minimize via package cache
+  - name: Egress per build
+    metric: package_egress_bytes / ci_build_count
+    target: '< 100MB sustained via cache'
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
