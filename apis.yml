@@ -6,7 +6,7 @@ description: >-
   developer platform exposes a set of HTTP APIs that enable programmatic access
   to package search, metadata retrieval, content download, catalog browsing,
   and package publishing against the nuget.org feed.
-type: Contract
+kind: contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Package Management
