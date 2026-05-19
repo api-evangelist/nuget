@@ -1,0 +1,158 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NuGet Package Metadata API — Registration
+  description: 'NuGet Package Metadata API — Registration. 3 operations. Lead operation: Get registration index for a package.
+    Self-contained Naftiko capability covering one Nuget business surface.'
+  tags:
+  - Nuget
+  - Registration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUGET_API_KEY: NUGET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: package-metadata-registration
+    baseUri: https://api.nuget.org/v3/registration5-gz-semver2
+    description: NuGet Package Metadata API — Registration business capability. Self-contained, no shared references.
+    resources:
+    - name: lowerId-index.json
+      path: /{lowerId}/index.json
+      operations:
+      - name: getregistrationindex
+        method: GET
+        description: Get registration index for a package
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: lowerId-page-lower-upper}.json
+      path: /{lowerId}/page/{lower}/{upper}.json
+      operations:
+      - name: getregistrationpage
+        method: GET
+        description: Get a registration page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: lower
+          in: path
+          type: string
+          description: The lowest SemVer 2.0.0 version in the page (inclusive).
+          required: true
+        - name: upper
+          in: path
+          type: string
+          description: The highest SemVer 2.0.0 version in the page (inclusive).
+          required: true
+    - name: lowerId-version}.json
+      path: /{lowerId}/{version}.json
+      operations:
+      - name: getregistrationleaf
+        method: GET
+        description: Get a registration leaf
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: version
+          in: path
+          type: string
+          description: The normalized, lowercased package version.
+          required: true
+  exposes:
+  - type: rest
+    namespace: package-metadata-registration-rest
+    port: 8080
+    description: REST adapter for NuGet Package Metadata API — Registration. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/{lowerid}/index-json
+      name: lowerid-index-json
+      description: REST surface for lowerId-index.json.
+      operations:
+      - method: GET
+        name: getregistrationindex
+        description: Get registration index for a package
+        call: package-metadata-registration.getregistrationindex
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{lowerid}/page/{lower}/upper-json
+      name: lowerid-page-lower-upper-json
+      description: REST surface for lowerId-page-lower-upper}.json.
+      operations:
+      - method: GET
+        name: getregistrationpage
+        description: Get a registration page
+        call: package-metadata-registration.getregistrationpage
+        with:
+          lower: rest.lower
+          upper: rest.upper
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{lowerid}/version-json
+      name: lowerid-version-json
+      description: REST surface for lowerId-version}.json.
+      operations:
+      - method: GET
+        name: getregistrationleaf
+        description: Get a registration leaf
+        call: package-metadata-registration.getregistrationleaf
+        with:
+          version: rest.version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: package-metadata-registration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NuGet Package Metadata API — Registration. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-registration-index-package
+      description: Get registration index for a package
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: package-metadata-registration.getregistrationindex
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-registration-page
+      description: Get a registration page
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: package-metadata-registration.getregistrationpage
+      with:
+        lower: tools.lower
+        upper: tools.upper
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-registration-leaf
+      description: Get a registration leaf
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: package-metadata-registration.getregistrationleaf
+      with:
+        version: tools.version
+      outputParameters:
+      - type: object
+        mapping: $.

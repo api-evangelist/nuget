@@ -1,0 +1,165 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NuGet Catalog API — Catalog
+  description: 'NuGet Catalog API — Catalog. 3 operations. Lead operation: Get a catalog leaf. Self-contained Naftiko capability
+    covering one Nuget business surface.'
+  tags:
+  - Nuget
+  - Catalog
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUGET_API_KEY: NUGET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: catalog-catalog
+    baseUri: https://api.nuget.org/v3/catalog0
+    description: NuGet Catalog API — Catalog business capability. Self-contained, no shared references.
+    resources:
+    - name: data-timestamp-packageId}.{version}.json
+      path: /data/{timestamp}/{packageId}.{version}.json
+      operations:
+      - name: getcatalogleaf
+        method: GET
+        description: Get a catalog leaf
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: timestamp
+          in: path
+          type: string
+          description: The timestamp path segment, discovered from the catalog page.
+          required: true
+        - name: packageId
+          in: path
+          type: string
+          description: The lowercased package ID.
+          required: true
+        - name: version
+          in: path
+          type: string
+          description: The lowercased package version.
+          required: true
+    - name: index.json
+      path: /index.json
+      operations:
+      - name: getcatalogindex
+        method: GET
+        description: Get the catalog index
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: pageName}.json
+      path: /{pageName}.json
+      operations:
+      - name: getcatalogpage
+        method: GET
+        description: Get a catalog page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pageName
+          in: path
+          type: string
+          description: The page identifier, discovered from the catalog index.
+          required: true
+  exposes:
+  - type: rest
+    namespace: catalog-catalog-rest
+    port: 8080
+    description: REST adapter for NuGet Catalog API — Catalog. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/data/{timestamp}/packageid-version-json
+      name: data-timestamp-packageid-version-json
+      description: REST surface for data-timestamp-packageId}.{version}.json.
+      operations:
+      - method: GET
+        name: getcatalogleaf
+        description: Get a catalog leaf
+        call: catalog-catalog.getcatalogleaf
+        with:
+          timestamp: rest.timestamp
+          packageId: rest.packageId
+          version: rest.version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/index-json
+      name: index-json
+      description: REST surface for index.json.
+      operations:
+      - method: GET
+        name: getcatalogindex
+        description: Get the catalog index
+        call: catalog-catalog.getcatalogindex
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pagename-json
+      name: pagename-json
+      description: REST surface for pageName}.json.
+      operations:
+      - method: GET
+        name: getcatalogpage
+        description: Get a catalog page
+        call: catalog-catalog.getcatalogpage
+        with:
+          pageName: rest.pageName
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: catalog-catalog-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NuGet Catalog API — Catalog. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-catalog-leaf
+      description: Get a catalog leaf
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: catalog-catalog.getcatalogleaf
+      with:
+        timestamp: tools.timestamp
+        packageId: tools.packageId
+        version: tools.version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-catalog-index
+      description: Get the catalog index
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: catalog-catalog.getcatalogindex
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-catalog-page
+      description: Get a catalog page
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: catalog-catalog.getcatalogpage
+      with:
+        pageName: tools.pageName
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,109 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NuGet Search API — Autocomplete
+  description: 'NuGet Search API — Autocomplete. 2 operations. Lead operation: Autocomplete package IDs. Self-contained Naftiko
+    capability covering one Nuget business surface.'
+  tags:
+  - Nuget
+  - Autocomplete
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NUGET_API_KEY: NUGET_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: search-autocomplete
+    baseUri: https://azuresearch-usnc.nuget.org
+    description: NuGet Search API — Autocomplete business capability. Self-contained, no shared references.
+    resources:
+    - name: autocomplete
+      path: /autocomplete
+      operations:
+      - name: autocompletepackageids
+        method: GET
+        description: Autocomplete package IDs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: autocomplete-versions
+      path: /autocomplete-versions
+      operations:
+      - name: enumeratepackageversions
+        method: GET
+        description: Enumerate package versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: query
+          type: string
+          description: The package ID to fetch versions for.
+          required: true
+  exposes:
+  - type: rest
+    namespace: search-autocomplete-rest
+    port: 8080
+    description: REST adapter for NuGet Search API — Autocomplete. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/autocomplete
+      name: autocomplete
+      description: REST surface for autocomplete.
+      operations:
+      - method: GET
+        name: autocompletepackageids
+        description: Autocomplete package IDs
+        call: search-autocomplete.autocompletepackageids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/autocomplete-versions
+      name: autocomplete-versions
+      description: REST surface for autocomplete-versions.
+      operations:
+      - method: GET
+        name: enumeratepackageversions
+        description: Enumerate package versions
+        call: search-autocomplete.enumeratepackageversions
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: search-autocomplete-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NuGet Search API — Autocomplete. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: autocomplete-package-ids
+      description: Autocomplete package IDs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-autocomplete.autocompletepackageids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: enumerate-package-versions
+      description: Enumerate package versions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: search-autocomplete.enumeratepackageversions
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
