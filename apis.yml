@@ -17,7 +17,7 @@ tags:
   - Registry
 url: https://raw.githubusercontent.com/api-evangelist/nuget/refs/heads/main/apis.yml
 created: '2025-03-05'
-modified: '2026-04-28'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
   - aid: nuget:nuget-server-api
@@ -142,6 +142,9 @@ common:
     url: https://devblogs.microsoft.com/nuget/
   - type: Login
     url: https://www.nuget.org/users/account/LogOn
+  - name: MCP Server
+    url: https://devblogs.microsoft.com/dotnet/nuget-mcp-server-preview/
+    type: MCPServer
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
