@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceIndex",
+  "title": "ServiceIndex",
+  "type": "object",
+  "description": "The service index document that lists all available NuGet API resources.",
+  "required": [
+    "version",
+    "resources"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "The schema version of the service index. The major version must be 3.",
+      "example": "3.0.0"
+    },
+    "resources": {
+      "type": "array",
+      "description": "The list of resources available on this package source.",
+      "items": {
+        "$ref": "#/components/schemas/ServiceIndexResource"
+      }
+    }
+  }
+}

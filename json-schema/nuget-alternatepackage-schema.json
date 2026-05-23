@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AlternatePackage",
+  "title": "AlternatePackage",
+  "type": "object",
+  "description": "A recommended replacement for a deprecated package.",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the alternate package."
+    },
+    "range": {
+      "type": "string",
+      "description": "The allowed version range, or * if any version is accepted."
+    }
+  }
+}

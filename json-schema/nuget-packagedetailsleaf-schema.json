@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PackageDetailsLeaf",
+  "title": "PackageDetailsLeaf",
+  "type": "object",
+  "description": "A catalog leaf representing a snapshot of package metadata. Produced when a package is pushed, relisted, unlisted, deprecated, undeprecated, reflowed, or has its vulnerability status updated.",
+  "required": [
+    "@type",
+    "catalog:commitId",
+    "catalog:commitTimeStamp",
+    "id",
+    "published",
+    "version",
+    "packageHash",
+    "packageHashAlgorithm",
+    "packageSize"
+  ],
+  "properties": {
+    "@type": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "The type(s) of the catalog item, including PackageDetails."
+    },
+    "catalog:commitId": {
+      "type": "string",
+      "description": "A commit ID associated with this catalog item."
+    },
+    "catalog:commitTimeStamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The commit timestamp of this catalog item."
+    },
+    "id": {
+      "type": "string",
+      "description": "The package ID."
+    },
+    "version": {
+      "type": "string",
+      "description": "The full version string after normalization."
+    },
+    "published": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the package was last listed. Set to year 1900 on nuget.org when unlisted."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp of when the package was first created on the source."
+    },
+    "authors": {
+      "type": "string",
+      "description": "The authors of the package."
+    },
+    "description": {
+      "type": "string",
+      "description": "The package description."
+    },
+    "dependencyGroups": {
+      "type": "array",
+      "description": "The dependencies grouped by target framework.",
+      "items": {
+        "$ref": "#/components/schemas/DependencyGroup"
+      }
+    },
+    "deprecation": {
+      "$ref": "#/components/schemas/Deprecation"
+    },
+    "iconUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the package icon."
+    },
+    "isPrerelease": {
+      "type": "boolean",
+      "description": "Whether the package version is a prerelease."
+    },
+    "language": {
+      "type": "string",
+      "description": "The language of the package."
+    },
+    "licenseUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the package license."
+    },
+    "listed": {
+      "type": "boolean",
+      "description": "Whether the package is listed."
+    },
+    "minClientVersion": {
+      "type": "string",
+      "description": "The minimum NuGet client version required."
+    },
+    "packageContent": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the .nupkg file."
+    },
+    "packageHash": {
+      "type": "string",
+      "description": "The hash of the package encoded using standard base 64."
+    },
+    "packageHashAlgorithm": {
+      "type": "string",
+      "description": "The hashing algorithm used. Typically SHA512 on nuget.org."
+    },
+    "packageSize": {
+      "type": "integer",
+      "description": "The size of the package .nupkg in bytes."
+    },
+    "packageTypes": {
+      "type": "array",
+      "description": "The package types specified by the author.",
+      "items": {
+        "$ref": "#/components/schemas/CatalogPackageType"
+      }
+    },
+    "projectUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the project page."
+    },
+    "releaseNotes": {
+      "type": "string",
+      "description": "Release notes for this package version."
+    },
+    "requireLicenseAgreement": {
+      "type": "boolean",
+      "description": "Whether the package requires license acceptance."
+    },
+    "summary": {
+      "type": "string",
+      "description": "A summary of the package."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags associated with the package."
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the package."
+    },
+    "verbatimVersion": {
+      "type": "string",
+      "description": "The version string as originally found in the .nuspec."
+    },
+    "vulnerabilities": {
+      "type": "array",
+      "description": "Security vulnerabilities associated with this version.",
+      "items": {
+        "$ref": "#/components/schemas/Vulnerability"
+      }
+    }
+  }
+}

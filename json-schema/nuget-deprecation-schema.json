@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Deprecation",
+  "title": "Deprecation",
+  "type": "object",
+  "description": "Deprecation information for a package.",
+  "required": [
+    "reasons"
+  ],
+  "properties": {
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message": {
+      "type": "string"
+    },
+    "alternatePackage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "range": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

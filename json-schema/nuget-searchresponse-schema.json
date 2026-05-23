@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchResponse",
+  "title": "SearchResponse",
+  "type": "object",
+  "description": "The response from a package search query.",
+  "required": [
+    "totalHits",
+    "data"
+  ],
+  "properties": {
+    "totalHits": {
+      "type": "integer",
+      "description": "The total number of matches, disregarding skip and take."
+    },
+    "data": {
+      "type": "array",
+      "description": "The search results matched by the request, grouped by package ID.",
+      "items": {
+        "$ref": "#/components/schemas/SearchResult"
+      }
+    }
+  }
+}

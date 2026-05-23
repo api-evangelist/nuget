@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RegistrationPage",
+  "title": "RegistrationPage",
+  "type": "object",
+  "description": "A registration page fetched separately from the index.",
+  "required": [
+    "@id",
+    "count",
+    "items",
+    "lower",
+    "parent",
+    "upper"
+  ],
+  "properties": {
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the registration page."
+    },
+    "count": {
+      "type": "integer",
+      "description": "The number of registration leaves in the page."
+    },
+    "items": {
+      "type": "array",
+      "description": "The array of registration leaves.",
+      "items": {
+        "$ref": "#/components/schemas/RegistrationLeaf"
+      }
+    },
+    "lower": {
+      "type": "string",
+      "description": "The lowest SemVer 2.0.0 version in the page (inclusive)."
+    },
+    "parent": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the registration index."
+    },
+    "upper": {
+      "type": "string",
+      "description": "The highest SemVer 2.0.0 version in the page (inclusive)."
+    }
+  }
+}

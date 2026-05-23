@@ -1,0 +1,154 @@
+{
+  "provider": "NuGet",
+  "providerId": "nuget",
+  "kind": "json-structure",
+  "description": "Structural overview of the NuGet API surface; extracted from openapi/.",
+  "schemaCount": 11,
+  "operationCount": 3,
+  "schemas": [
+    {
+      "name": "CatalogIndex",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "commitId",
+        "commitTimeStamp",
+        "count",
+        "items"
+      ]
+    },
+    {
+      "name": "CatalogPageReference",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "@id",
+        "commitId",
+        "commitTimeStamp",
+        "count"
+      ]
+    },
+    {
+      "name": "CatalogPage",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "commitId",
+        "commitTimeStamp",
+        "count",
+        "items",
+        "parent"
+      ]
+    },
+    {
+      "name": "CatalogItemReference",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "@id",
+        "@type",
+        "commitId",
+        "commitTimeStamp",
+        "nuget:id",
+        "nuget:version"
+      ]
+    },
+    {
+      "name": "PackageDetailsLeaf",
+      "type": "object",
+      "propertyCount": 30,
+      "required": [
+        "@type",
+        "catalog:commitId",
+        "catalog:commitTimeStamp",
+        "id",
+        "published",
+        "version",
+        "packageHash",
+        "packageHashAlgorithm",
+        "packageSize"
+      ]
+    },
+    {
+      "name": "PackageDeleteLeaf",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "@type",
+        "catalog:commitId",
+        "catalog:commitTimeStamp",
+        "id",
+        "published",
+        "version"
+      ]
+    },
+    {
+      "name": "DependencyGroup",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Dependency",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "id"
+      ]
+    },
+    {
+      "name": "Deprecation",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "reasons"
+      ]
+    },
+    {
+      "name": "CatalogPackageType",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name"
+      ]
+    },
+    {
+      "name": "Vulnerability",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "advisoryUrl",
+        "severity"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/index.json",
+      "operationId": "getCatalogIndex",
+      "summary": "Get the catalog index",
+      "tags": [
+        "Catalog"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/{pageName}.json",
+      "operationId": "getCatalogPage",
+      "summary": "Get a catalog page",
+      "tags": [
+        "Catalog"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/data/{timestamp}/{packageId}.{version}.json",
+      "operationId": "getCatalogLeaf",
+      "summary": "Get a catalog leaf",
+      "tags": [
+        "Catalog"
+      ]
+    }
+  ]
+}

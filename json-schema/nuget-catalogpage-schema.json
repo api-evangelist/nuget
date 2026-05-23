@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CatalogPage",
+  "title": "CatalogPage",
+  "type": "object",
+  "description": "A catalog page containing a collection of catalog items.",
+  "required": [
+    "commitId",
+    "commitTimeStamp",
+    "count",
+    "items",
+    "parent"
+  ],
+  "properties": {
+    "commitId": {
+      "type": "string",
+      "description": "A unique ID associated with the most recent commit in this page."
+    },
+    "commitTimeStamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp of the most recent commit in this page."
+    },
+    "count": {
+      "type": "integer",
+      "description": "The number of items in the page."
+    },
+    "items": {
+      "type": "array",
+      "description": "The catalog items in this page.",
+      "items": {
+        "$ref": "#/components/schemas/CatalogItemReference"
+      }
+    },
+    "parent": {
+      "type": "string",
+      "format": "uri",
+      "description": "A URL to the catalog index."
+    }
+  }
+}

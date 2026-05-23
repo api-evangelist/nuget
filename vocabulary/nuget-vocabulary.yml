@@ -1,0 +1,8 @@
+name: NuGet Domain Vocabulary
+provider: NuGet
+providerId: nuget
+description: Tag-derived vocabulary for the NuGet API surface; sourced from openapi/ tags.
+terms:
+- term: Catalog
+  description: Endpoints for accessing the catalog index, pages, and individual leaf documents that record the full history
+    of package events.

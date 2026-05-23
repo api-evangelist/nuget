@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CatalogIndex",
+  "title": "CatalogIndex",
+  "type": "object",
+  "description": "The catalog index, the entry point for the catalog resource.",
+  "required": [
+    "commitId",
+    "commitTimeStamp",
+    "count",
+    "items"
+  ],
+  "properties": {
+    "commitId": {
+      "type": "string",
+      "description": "A unique ID associated with the most recent commit."
+    },
+    "commitTimeStamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp of the most recent commit."
+    },
+    "count": {
+      "type": "integer",
+      "description": "The number of pages in the index."
+    },
+    "items": {
+      "type": "array",
+      "description": "The array of catalog page references.",
+      "items": {
+        "$ref": "#/components/schemas/CatalogPageReference"
+      }
+    }
+  }
+}

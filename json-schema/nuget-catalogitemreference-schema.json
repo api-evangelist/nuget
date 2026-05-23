@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CatalogItemReference",
+  "title": "CatalogItemReference",
+  "type": "object",
+  "description": "A reference to a catalog item within a catalog page.",
+  "required": [
+    "@id",
+    "@type",
+    "commitId",
+    "commitTimeStamp",
+    "nuget:id",
+    "nuget:version"
+  ],
+  "properties": {
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to fetch the catalog item."
+    },
+    "@type": {
+      "type": "string",
+      "description": "The type of the catalog item. Either nuget:PackageDetails or nuget:PackageDelete.",
+      "enum": [
+        "nuget:PackageDetails",
+        "nuget:PackageDelete"
+      ]
+    },
+    "commitId": {
+      "type": "string",
+      "description": "The commit ID associated with this catalog item."
+    },
+    "commitTimeStamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The commit timestamp of this catalog item."
+    },
+    "nuget:id": {
+      "type": "string",
+      "description": "The package ID that this item is related to."
+    },
+    "nuget:version": {
+      "type": "string",
+      "description": "The package version that this item is related to."
+    }
+  }
+}

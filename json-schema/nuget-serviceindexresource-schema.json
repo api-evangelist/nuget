@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceIndexResource",
+  "title": "ServiceIndexResource",
+  "type": "object",
+  "description": "A resource available on the NuGet package source.",
+  "required": [
+    "@id",
+    "@type"
+  ],
+  "properties": {
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the resource."
+    },
+    "@type": {
+      "type": "string",
+      "description": "A string representing the resource type, such as SearchQueryService, RegistrationsBaseUrl, PackageBaseAddress, PackagePublish, or Catalog."
+    },
+    "comment": {
+      "type": "string",
+      "description": "A human-readable description of the resource."
+    }
+  }
+}

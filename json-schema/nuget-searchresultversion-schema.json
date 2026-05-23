@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchResultVersion",
+  "title": "SearchResultVersion",
+  "type": "object",
+  "description": "A specific version entry within a search result.",
+  "required": [
+    "@id",
+    "version",
+    "downloads"
+  ],
+  "properties": {
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The absolute URL to the associated registration leaf."
+    },
+    "version": {
+      "type": "string",
+      "description": "The full SemVer 2.0.0 version string."
+    },
+    "downloads": {
+      "type": "integer",
+      "description": "The number of downloads for this specific version."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CatalogPageReference",
+  "title": "CatalogPageReference",
+  "type": "object",
+  "description": "A reference to a catalog page within the catalog index.",
+  "required": [
+    "@id",
+    "commitId",
+    "commitTimeStamp",
+    "count"
+  ],
+  "properties": {
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to fetch the catalog page."
+    },
+    "commitId": {
+      "type": "string",
+      "description": "A unique ID associated with the most recent commit in this page."
+    },
+    "commitTimeStamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp of the most recent commit in this page."
+    },
+    "count": {
+      "type": "integer",
+      "description": "The number of items in the catalog page."
+    }
+  }
+}

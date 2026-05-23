@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VersionEnumerationResponse",
+  "title": "VersionEnumerationResponse",
+  "type": "object",
+  "description": "The response from a package version enumeration query.",
+  "required": [
+    "data"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "The package versions matched by the request.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

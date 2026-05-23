@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RegistrationPageEntry",
+  "title": "RegistrationPageEntry",
+  "type": "object",
+  "description": "A registration page entry within the index, covering a range of package versions.",
+  "required": [
+    "@id",
+    "count",
+    "lower",
+    "upper"
+  ],
+  "properties": {
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the registration page."
+    },
+    "count": {
+      "type": "integer",
+      "description": "The number of registration leaves in the page."
+    },
+    "items": {
+      "type": "array",
+      "description": "The array of registration leaves. Present when leaves are inlined into the index, absent when a separate request is needed.",
+      "items": {
+        "$ref": "#/components/schemas/RegistrationLeaf"
+      }
+    },
+    "lower": {
+      "type": "string",
+      "description": "The lowest SemVer 2.0.0 version in the page (inclusive)."
+    },
+    "parent": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the registration index. Only present when items are inlined."
+    },
+    "upper": {
+      "type": "string",
+      "description": "The highest SemVer 2.0.0 version in the page (inclusive)."
+    }
+  }
+}

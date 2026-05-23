@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VersionIndex",
+  "title": "VersionIndex",
+  "type": "object",
+  "description": "A list of all available versions for a package.",
+  "required": [
+    "versions"
+  ],
+  "properties": {
+    "versions": {
+      "type": "array",
+      "description": "The lowercased, normalized version strings available for download.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

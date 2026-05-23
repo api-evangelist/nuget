@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchResult",
+  "title": "SearchResult",
+  "type": "object",
+  "description": "A search result representing a package, with metadata from the latest version.",
+  "required": [
+    "id",
+    "version",
+    "versions",
+    "packageTypes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The ID of the matched package."
+    },
+    "version": {
+      "type": "string",
+      "description": "The full SemVer 2.0.0 version string of the latest package version."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the package."
+    },
+    "versions": {
+      "type": "array",
+      "description": "All versions of the package matching the prerelease parameter.",
+      "items": {
+        "$ref": "#/components/schemas/SearchResultVersion"
+      }
+    },
+    "authors": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "The author or authors of the package."
+    },
+    "iconUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the package icon."
+    },
+    "licenseUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the package license."
+    },
+    "owners": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "The owner or owners of the package on the package source."
+    },
+    "projectUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the project page."
+    },
+    "registration": {
+      "type": "string",
+      "format": "uri",
+      "description": "The absolute URL to the associated registration index."
+    },
+    "summary": {
+      "type": "string",
+      "description": "A summary of the package."
+    },
+    "tags": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Tags associated with the package."
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the package."
+    },
+    "totalDownloads": {
+      "type": "integer",
+      "description": "The total number of downloads across all versions."
+    },
+    "verified": {
+      "type": "boolean",
+      "description": "Whether the package is verified via ID prefix reservation."
+    },
+    "packageTypes": {
+      "type": "array",
+      "description": "The package types defined by the package author.",
+      "items": {
+        "$ref": "#/components/schemas/PackageType"
+      }
+    }
+  }
+}

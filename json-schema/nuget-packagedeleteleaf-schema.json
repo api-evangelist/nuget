@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PackageDeleteLeaf",
+  "title": "PackageDeleteLeaf",
+  "type": "object",
+  "description": "A catalog leaf representing a package deletion event.",
+  "required": [
+    "@type",
+    "catalog:commitId",
+    "catalog:commitTimeStamp",
+    "id",
+    "published",
+    "version"
+  ],
+  "properties": {
+    "@type": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "The type(s) of the catalog item, including PackageDelete."
+    },
+    "catalog:commitId": {
+      "type": "string",
+      "description": "A commit ID associated with this catalog item."
+    },
+    "catalog:commitTimeStamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The commit timestamp of this catalog item."
+    },
+    "id": {
+      "type": "string",
+      "description": "The package ID."
+    },
+    "originalId": {
+      "type": "string",
+      "description": "The original cased package ID."
+    },
+    "published": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The time when the package was deleted."
+    },
+    "version": {
+      "type": "string",
+      "description": "The original version string from the .nuspec."
+    }
+  }
+}

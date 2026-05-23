@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AutocompleteResponse",
+  "title": "AutocompleteResponse",
+  "type": "object",
+  "description": "The response from a package ID autocomplete query.",
+  "required": [
+    "totalHits",
+    "data"
+  ],
+  "properties": {
+    "totalHits": {
+      "type": "integer",
+      "description": "The total number of matches, disregarding skip and take."
+    },
+    "data": {
+      "type": "array",
+      "description": "The package IDs matched by the request.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

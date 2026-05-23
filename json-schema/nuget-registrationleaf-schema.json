@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RegistrationLeaf",
+  "title": "RegistrationLeaf",
+  "type": "object",
+  "description": "A registration leaf representing data for a single package version within a page.",
+  "required": [
+    "@id",
+    "catalogEntry",
+    "packageContent"
+  ],
+  "properties": {
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the registration leaf."
+    },
+    "catalogEntry": {
+      "$ref": "#/components/schemas/CatalogEntry"
+    },
+    "packageContent": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL to the package content (.nupkg)."
+    }
+  }
+}

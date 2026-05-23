@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DependencyGroup",
+  "title": "DependencyGroup",
+  "type": "object",
+  "description": "A group of package dependencies for a specific target framework.",
+  "properties": {
+    "targetFramework": {
+      "type": "string",
+      "description": "The target framework these dependencies apply to."
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Dependency"
+      }
+    }
+  }
+}
