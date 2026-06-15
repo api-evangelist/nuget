@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NuGet Catalog API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the catalog index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/catalog0/index.json"
+          },
+          "docs": "Retrieves the catalog index, which is the entry point for the catalog. It contains a list of catalog pages ordered chronologically. Each page contains catalog items representing package events. Clients should use cursor-based polling to process new events incrementally."
+        },
+        {
+          "info": {
+            "name": "Get a catalog page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/catalog0/:pageName.json",
+            "params": [
+              {
+                "name": "pageName",
+                "value": "",
+                "type": "path",
+                "description": "The page identifier, discovered from the catalog index."
+              }
+            ]
+          },
+          "docs": "Retrieves a catalog page containing a collection of catalog items. The URL to a catalog page is discovered from the catalog index and should not be constructed by clients. Each page contains up to 550 items on nuget.org."
+        },
+        {
+          "info": {
+            "name": "Get a catalog leaf",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/catalog0/data/:timestamp/:packageId.:version.json",
+            "params": [
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "path",
+                "description": "The timestamp path segment, discovered from the catalog page."
+              },
+              {
+                "name": "packageId",
+                "value": "",
+                "type": "path",
+                "description": "The lowercased package ID."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The lowercased package version."
+              }
+            ]
+          },
+          "docs": "Retrieves a catalog leaf document containing metadata about a specific package ID and version at a point in time. The URL is discovered from a catalog page and should not be constructed by clients. Leaf types include PackageDetails for metadata snapshots and PackageDelete for deletion records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

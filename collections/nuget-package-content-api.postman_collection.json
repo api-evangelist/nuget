@@ -1,0 +1,412 @@
+{
+  "item": [
+    {
+      "id": "9ba374c1-357b-4f17-ac50-b6a023fccef1",
+      "name": "Package Content",
+      "description": {
+        "content": "Endpoints for enumerating package versions and downloading package content files (.nupkg) and manifests (.nuspec).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2733a8bc-b7a5-445c-a9a7-ce63ac54a4d9",
+          "name": "Enumerate package versions",
+          "request": {
+            "name": "Enumerate package versions",
+            "description": {
+              "content": "Lists all available versions (both listed and unlisted) of a package. The versions returned can be used to construct URLs for downloading specific package content or manifests. Returns a 404 if the package source has no versions of the provided package ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":lowerId",
+                "index.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lowerId",
+                  "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63aef84d-1958-485f-9de0-97452b183112",
+              "name": "The list of available versions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "index.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"versions\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf48490b-8e9a-44ac-a53e-2fe42c4f532a",
+              "name": "No package with the given ID exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "index.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae560466-4a7a-4e01-9ade-43c401b8577d",
+          "name": "Download package content (.nupkg)",
+          "request": {
+            "name": "Download package content (.nupkg)",
+            "description": {
+              "content": "Downloads the package content file (.nupkg) for a specific package ID and version. Both the package ID and version must be lowercased and the version must be normalized according to NuGet version normalization rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":lowerId",
+                ":lowerVersion",
+                "{{lowerId}}.{{lowerVersion}}.nupkg"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cde60052-4567-4f94-adb9-832ef7433e6d",
+              "name": "The package content binary stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    ":lowerVersion",
+                    "{{lowerId}}.{{lowerVersion}}.nupkg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f4e884e-13e5-4573-8b46-0f397b7b1a8f",
+              "name": "The package does not exist on the package source",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    ":lowerVersion",
+                    "{{lowerId}}.{{lowerVersion}}.nupkg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b61d78a-c107-4cf8-90a1-3146fc6294c9",
+          "name": "Download package manifest (.nuspec)",
+          "request": {
+            "name": "Download package manifest (.nuspec)",
+            "description": {
+              "content": "Downloads the package manifest file (.nuspec) for a specific package ID and version. The .nuspec is an XML document containing the package metadata as originally authored. Both the package ID and version must be lowercased and the version normalized.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":lowerId",
+                ":lowerVersion",
+                "{{lowerId}}.nuspec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lowerVersion",
+                  "description": "(Required) The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0efcda0-6d40-41cb-ad1e-8bc715277c3b",
+              "name": "The package manifest XML document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    ":lowerVersion",
+                    "{{lowerId}}.nuspec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerVersion",
+                      "description": "(Required) The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "3971f9e8-b443-4088-b434-c9da7510f783",
+              "name": "The package does not exist on the package source",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    ":lowerVersion",
+                    "{{lowerId}}.nuspec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerVersion",
+                      "description": "(Required) The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nuget.org/v3-flatcontainer",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "lowerId"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "lowerVersion"
+    }
+  ],
+  "info": {
+    "_postman_id": "26842963-d3b7-466c-b84f-546b1eb2b4da",
+    "name": "NuGet Package Content API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NuGet Package Content API, accessed through the PackageBaseAddress resource (also known as the flat container), allows clients to download package content files (.nupkg), package manifests (.nuspec), and enumerate all available versions for a given package ID. The flat container structure organizes packages by lowercase package ID and version, providing direct access to binary package files.\n\nContact Support:\n Name: NuGet Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NuGet Search API",
+    "version": "3.5.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://azuresearch-usnc.nuget.org/query",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "The search terms used to filter packages. If not provided, all packages are returned within the boundaries of skip and take."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip for pagination. Defaults to 0. On nuget.org, limited to 3000."
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return for pagination. The server may impose a maximum value. On nuget.org, limited to 1000."
+              },
+              {
+                "name": "prerelease",
+                "value": "",
+                "type": "query",
+                "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+              },
+              {
+                "name": "semVerLevel",
+                "value": "",
+                "type": "query",
+                "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+              },
+              {
+                "name": "packageType",
+                "value": "",
+                "type": "query",
+                "description": "The package type name to filter results. Added in SearchQueryService/3.5.0. If empty or not provided, no filter is applied."
+              }
+            ]
+          },
+          "docs": "Queries for a page of packages matching a specified search query. Results are grouped by package ID and include metadata from the latest version. Unlisted packages never appear in search results. The base URL for this endpoint must be obtained from the service index using the SearchQueryService resource type."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Autocomplete",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Autocomplete package IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://azuresearch-usnc.nuget.org/autocomplete",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "The search terms used to filter packages. If not provided, all packages are returned within the boundaries of skip and take."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip for pagination. Defaults to 0. On nuget.org, limited to 3000."
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return for pagination. The server may impose a maximum value. On nuget.org, limited to 1000."
+              },
+              {
+                "name": "prerelease",
+                "value": "",
+                "type": "query",
+                "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+              },
+              {
+                "name": "semVerLevel",
+                "value": "",
+                "type": "query",
+                "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+              },
+              {
+                "name": "packageType",
+                "value": "",
+                "type": "query",
+                "description": "The package type name to filter results. Added in SearchQueryService/3.5.0. If empty or not provided, no filter is applied."
+              }
+            ]
+          },
+          "docs": "Searches for package IDs matching a substring. This endpoint supports typeahead features in user interfaces integrated with a NuGet package source. Packages with only unlisted versions do not appear in results. The base URL for this endpoint must be obtained from the service index using the SearchAutocompleteService resource type."
+        },
+        {
+          "info": {
+            "name": "Enumerate package versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://azuresearch-usnc.nuget.org/autocomplete-versions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The package ID to fetch versions for."
+              },
+              {
+                "name": "prerelease",
+                "value": "",
+                "type": "query",
+                "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+              },
+              {
+                "name": "semVerLevel",
+                "value": "",
+                "type": "query",
+                "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+              }
+            ]
+          },
+          "docs": "Enumerates all listed versions for a given package ID. Unlisted versions do not appear in the results. This endpoint uses the same SearchAutocompleteService base URL with the id parameter instead of the q parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

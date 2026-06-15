@@ -1,0 +1,457 @@
+{
+  "item": [
+    {
+      "id": "41ada7fc-ce65-4941-9cc8-af6372a8b64e",
+      "name": "Registration",
+      "description": {
+        "content": "Package registration endpoints for fetching metadata about packages, organized into an index, pages, and leaves hierarchy.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c4f4911-700c-42dd-85e2-b4f56d133a45",
+          "name": "Get registration index for a package",
+          "request": {
+            "name": "Get registration index for a package",
+            "description": {
+              "content": "Retrieves the registration index for a given package ID. The index contains a list of registration pages, each covering a range of package versions. Pages may inline their leaf data or require separate requests. On nuget.org, packages with 128 or more versions are broken into pages of 64 versions each.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":lowerId",
+                "index.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lowerId",
+                  "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41462f71-c304-4940-94b5-329e15dac848",
+              "name": "The registration index for the package",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "index.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 1305,\n  \"items\": [\n    {\n      \"@id\": \"https://L.pie8QSfDNKZO+9mgg44WImyaQBZzT1bdSlgxiGxS8w,OwmGMAtaY\",\n      \"count\": 7475,\n      \"lower\": \"string\",\n      \"upper\": \"string\",\n      \"items\": [\n        {\n          \"@id\": \"http://iS.ldO71RW,ZX+GYlNH0rMkiIXbqmDwR-e-BwxIEz,IRAetzjv+6Gbp0t+3n2odmq4N\",\n          \"catalogEntry\": {\n            \"@id\": \"http://cuEDuJRXvZFNiTRGRkqKzyzohvx.kwpAOSbOdWUn9mK0XUnKwHWr9\",\n            \"id\": \"string\",\n            \"version\": \"string\",\n            \"authors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependencyGroups\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"iconUrl\": \"http://cwpvSwh.qadzg.ZWmdzeoyvOiYtkRYE3TIn6VE+r9t2-cjWy1gi4CTMQyiX-ZB8X-TrjDmSEeiT85IKBH1O95UP\",\n            \"language\": \"string\",\n            \"licenseUrl\": \"https://EaBQaBSDeOUbuQajlWvWStOOFvAe.dqpE,kg8KKlrUPEEWp3yC,mYzgTqBcvgy7OwDkArYBhupizuJC0fgMR.L98qSUX1Zy-\",\n            \"licenseExpression\": \"string\",\n            \"listed\": true,\n            \"minClientVersion\": \"string\",\n            \"packageContent\": \"https://uxKuCdfQGcPvOSCOZpvOGsyotC.dfyUqHyi6yfGPosMRUgwmWlSIaWybqBM\",\n            \"projectUrl\": \"https://NA.yzSKE+8cp3zhkzIsIoD5SK+xIC5qsb1IiBdowTwTsoIb3GIDaJTmoMUr\",\n            \"published\": \"1985-02-19T07:39:02.344Z\",\n            \"readmeUrl\": \"http://dTzClJg.vwZPIwTKWHnJ4voo51ZVLcJq4VFi8mm\",\n            \"requireLicenseAcceptance\": false,\n            \"summary\": \"string\",\n            \"tags\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": \"string\",\n            \"vulnerabilities\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"packageContent\": \"http://dFbssTlCcOLJujdf.rkpEpSqvwBuzRKtHbD2hB2uuzTHsgq9rl6r0xZ4+EsiuGsAf-g7f\"\n        },\n        {\n          \"@id\": \"https://cPECfOZLcmcUAZysEsvXkoDaPsZLvMdz.stgyw-GbLqq4dNVdtOLZ01elZqkJlT\",\n          \"catalogEntry\": {\n            \"@id\": \"https://KaRdkJtamikRtXkDFODIJKXD.mdZQRNLOalj3fAf\",\n            \"id\": \"string\",\n            \"version\": \"string\",\n            \"authors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependencyGroups\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"iconUrl\": \"https://FdRsZKv.hagPz6cgL-2HW3FJy\",\n            \"language\": \"string\",\n            \"licenseUrl\": \"https://xlpOQRnNnEiezOSYCUUP.pwsmXXfj1qgMC7P,QBjSu.LHUjyJAjLeM,srweUoxAbE46\",\n            \"licenseExpression\": \"string\",\n            \"listed\": false,\n            \"minClientVersion\": \"string\",\n            \"packageContent\": \"https://vsRzLmFryTEjxB.hcI46+oz77AADN6P.cji3LVUt0sMuVBtOE9HxDlSqAPOa\",\n            \"projectUrl\": \"http://aVIewHzxLkjbnZpjXkc.pjrmij2OB2IjlDN6\",\n            \"published\": \"1953-05-02T16:43:53.688Z\",\n            \"readmeUrl\": \"http://RcxJVpQePUneDFW.ltyyxOg7T77,uK\",\n            \"requireLicenseAcceptance\": false,\n            \"summary\": \"string\",\n            \"tags\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": \"string\",\n            \"vulnerabilities\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"packageContent\": \"http://FVUdscoQEBND.nxuIZQkqGaQak\"\n        }\n      ],\n      \"parent\": \"https://gHCgkzeOemEQAdtvenWddBMwlHAmfb.bywmVAn2nIIyudQnfLQQOUVSkkcbadziD88CSjrBjR\"\n    },\n    {\n      \"@id\": \"http://YbgiaiZgqMUOfWNkCAWokQvCkC.ecjW0AZxkXDhvN\",\n      \"count\": 12,\n      \"lower\": \"string\",\n      \"upper\": \"string\",\n      \"items\": [\n        {\n          \"@id\": \"https://OQtSePsvTBBnVpAnyxFFG.gePQgunztDr0n-xQExkxPLqd8Om9\",\n          \"catalogEntry\": {\n            \"@id\": \"http://PLFkNcBZQxTcLQzNQrkOkFyFkrUaoS.uebzWLHuSFVAVOjAPgUMf5DTcxyCx0OZTb8CbNib2YZ.RksF7o\",\n            \"id\": \"string\",\n            \"version\": \"string\",\n            \"authors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependencyGroups\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"iconUrl\": \"http://qPbavhNCFZFskVzWVCU.upzcVktya.dNa3hxDv+Pnrl,jGwjfetV9HGYuL52exz-vr1EIGn\",\n            \"language\": \"string\",\n            \"licenseUrl\": \"https://iQphNTIKkfpmV.ogdFBZZ9FlNDo75D80dTAJIJJ-3x6GlmUR\",\n            \"licenseExpression\": \"string\",\n            \"listed\": true,\n            \"minClientVersion\": \"string\",\n            \"packageContent\": \"http://FDKpYZlRVlrgJKszDgKByn.dgaV6WgNluLAmGhJQodkBPtylerZkoAtg9FW5iK5Bzj4\",\n            \"projectUrl\": \"https://iMXZQiSPopfFT.ouxpYybmcKfSFrJJLJ.JdjBAY6UUiDShB9\",\n            \"published\": \"1947-07-07T05:56:41.923Z\",\n            \"readmeUrl\": \"https://HRwzmZhFIsreXgLW.nrT17AhzyJBOWJEzom\",\n            \"requireLicenseAcceptance\": true,\n            \"summary\": \"string\",\n            \"tags\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": \"string\",\n            \"vulnerabilities\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"packageContent\": \"https://zL.rdDHvBDSLjZCbc6qVrpbMyOrSkSALPFnYCn1uy6M+fHJkHt8yEEAmT3Sud.Ar14I\"\n        },\n        {\n          \"@id\": \"https://PbyAaYEHPWxGJygggBTnNMDflecES.bjbaKmiSUWgYDINsTDucQ,k+nZgcVfQeeQbnN\",\n          \"catalogEntry\": {\n            \"@id\": \"http://DGxLVoqB.xelgiPrIdC9mZSbIyI3,0DznUdbFh1+GN1TYXUTdIispwURs1HQV52NBulzfK\",\n            \"id\": \"string\",\n            \"version\": \"string\",\n            \"authors\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"dependencyGroups\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"deprecation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": \"string\",\n            \"iconUrl\": \"http://kNNAWsthqbAAl.nlqh2aEZ3H,cirMzMxQuI+uHE-\",\n            \"language\": \"string\",\n            \"licenseUrl\": \"http://hlQFbnqKFbPrsrlJjkjDcBt.zwvaAU2tkNEJFWxXe0oJesRtT8.AuA\",\n            \"licenseExpression\": \"string\",\n            \"listed\": false,\n            \"minClientVersion\": \"string\",\n            \"packageContent\": \"http://l.jqflqb\",\n            \"projectUrl\": \"http://IziyyuogIogUWyqCtft.nhpiq+,O,YgcNM+ZcbEV9,JEgy0-\",\n            \"published\": \"2007-03-05T04:35:29.940Z\",\n            \"readmeUrl\": \"http://unxhcyTkSLDBzUzYEyjyBalAD.srqapfaox9Z2zBmqwTl4ELHCmOnA6Ng\",\n            \"requireLicenseAcceptance\": true,\n            \"summary\": \"string\",\n            \"tags\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": \"string\",\n            \"vulnerabilities\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"packageContent\": \"https://uSocOLGUNOVnHBtOYxzKReVjoZUt.tfucbNoMLjruE1DPvx7LKNQc-\"\n        }\n      ],\n      \"parent\": \"http://AwjAaSQkOYyzOcrzmEyKLXqjd.lsl5BZEEjydatQOk7FCH\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66e13993-2031-44ef-9ae2-1efd64104601",
+              "name": "No package with the given ID exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "index.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "313d2d56-b31c-40aa-9923-5a8430760f42",
+          "name": "Get a registration page",
+          "request": {
+            "name": "Get a registration page",
+            "description": {
+              "content": "Retrieves a registration page containing registration leaves for a range of package versions. The URL to a registration page is discovered from the registration index and should not be constructed by clients.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":lowerId",
+                "page",
+                ":lower",
+                "{{upper}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lowerId",
+                  "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lower",
+                  "description": "(Required) The lowest SemVer 2.0.0 version in the page (inclusive)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d4b08a7-3f25-4a64-b73f-daee80b0b012",
+              "name": "The registration page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "page",
+                    ":lower",
+                    "{{upper}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lower",
+                      "description": "(Required) The lowest SemVer 2.0.0 version in the page (inclusive)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@id\": \"https://kkumTzC.easeZxorx4TYbC6uRqybQMwBfve0Sb.P2Zj3\",\n  \"count\": 9170,\n  \"items\": [\n    {\n      \"@id\": \"http://dKLVUEUWYcabAnNmFphJbAzUTqb.vkihLa9NU5K6-DZmg,QvlgyQGLNN6\",\n      \"catalogEntry\": {\n        \"@id\": \"https://woAEMnwloIKvvqzSWjYZ.gxuk--+GxrH13wlX9frluqeh2QpbAv8aMj7nJgv79HoqKK5nXt1hUfo5WlkwhWN8wf\",\n        \"id\": \"string\",\n        \"version\": \"string\",\n        \"authors\": \"string\",\n        \"dependencyGroups\": [\n          {\n            \"targetFramework\": \"string\",\n            \"dependencies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"targetFramework\": \"string\",\n            \"dependencies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"deprecation\": {\n          \"reasons\": [\n            \"Legacy\",\n            \"Legacy\"\n          ],\n          \"message\": \"string\",\n          \"alternatePackage\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"range\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"description\": \"string\",\n        \"iconUrl\": \"http://aVEPxoQiFncIrQCnIhCWtCCNUrwqHLfb.pxjqrrgX1uaR\",\n        \"language\": \"string\",\n        \"licenseUrl\": \"https://hxZnMlGQPEGTwYkmKOMaK.xihPdd3\",\n        \"licenseExpression\": \"string\",\n        \"listed\": true,\n        \"minClientVersion\": \"string\",\n        \"packageContent\": \"https://OzBnBhhBnlIsFw.fcqjoY-V4zutDrGHOifUJm.OkcAxRkbrhZKklI8e0OAGw+R5\",\n        \"projectUrl\": \"http://DagCXkpF.nmojEtCl9lHwqBdrFmPl4.PzLv4c+R7ki1SY.lFO2yetbcJtnx9UYv9qcn\",\n        \"published\": \"2019-10-25T19:57:33.622Z\",\n        \"readmeUrl\": \"http://IUaIBEjjqpgfwiHCPkiVRgRKfqzyfIBM.huuPeolJdYdigJ+6qDSxAZ2Y-csW9XDGi48XD5lKFgqEAvKz0IoYmypIeaAfkBfzGB\",\n        \"requireLicenseAcceptance\": false,\n        \"summary\": \"string\",\n        \"tags\": \"string\",\n        \"title\": \"string\",\n        \"vulnerabilities\": [\n          {\n            \"advisoryUrl\": \"https://LnnvVnJhWj.bjMUNiAAvYAfeg1NDSgh,9FnIZlxdGEM10uAsE\",\n            \"severity\": \"0\"\n          },\n          {\n            \"advisoryUrl\": \"http://SWFnRcpuRoDJrMqtdeTw.orslCT1Rr3+thaVpI\",\n            \"severity\": \"1\"\n          }\n        ]\n      },\n      \"packageContent\": \"http://ucBNCvlvh.jvoGGs-wdt8i1d2qI98pC7ml2DVDI\"\n    },\n    {\n      \"@id\": \"http://zSlRHUXfRk.dmswDFrTRV6n7LjvP\",\n      \"catalogEntry\": {\n        \"@id\": \"http://qNRBplPZwa.bitpJ7M7cakotVgEau-NfDWt2LGnPY+lcuVQHv8pxmNIAPwPe4+k0C6ltYQXEfuF1hJmmqRqI-Q6\",\n        \"id\": \"string\",\n        \"version\": \"string\",\n        \"authors\": \"string\",\n        \"dependencyGroups\": [\n          {\n            \"targetFramework\": \"string\",\n            \"dependencies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"targetFramework\": \"string\",\n            \"dependencies\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"deprecation\": {\n          \"reasons\": [\n            \"Legacy\",\n            \"Legacy\"\n          ],\n          \"message\": \"string\",\n          \"alternatePackage\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"range\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"description\": \"string\",\n        \"iconUrl\": \"https://DIYhqzjaQYQdelCzoR.xjhKPZpqZRnE+wPDT9L,AwsBmzyEdSUv+DZdFrs2xR-BPR6o4TFBXKCi5RuB43jCMr\",\n        \"language\": \"string\",\n        \"licenseUrl\": \"http://wZT.rzngY,RENm4h8qIyBWD,.J6dx0VASNPU3\",\n        \"licenseExpression\": \"string\",\n        \"listed\": true,\n        \"minClientVersion\": \"string\",\n        \"packageContent\": \"https://scsVlmcegIvSPXblxUOuHWgWnbqjUoZz.menpKe,eqagbg3n-3\",\n        \"projectUrl\": \"http://FJIRuEpsnGcGRigtGLX.qvry1uVb4IwRcbT4e9uyldgYzHOibHASnwUkTr3H0T\",\n        \"published\": \"1975-02-10T15:26:53.775Z\",\n        \"readmeUrl\": \"https://tkNcNF.jiucxinCTxFm\",\n        \"requireLicenseAcceptance\": true,\n        \"summary\": \"string\",\n        \"tags\": \"string\",\n        \"title\": \"string\",\n        \"vulnerabilities\": [\n          {\n            \"advisoryUrl\": \"https://SAT.xjirKut,jYxppvRch2yl1R\",\n            \"severity\": \"1\"\n          },\n          {\n            \"advisoryUrl\": \"https://gsNBgMpGzFCgECXKZtZpxmzhddaVG.deHWD0BJbApumJRCn5z1iZCz.Kdh,QJjIth7yCTrdIPh7FEyTvso1NrvQyhf77iITSS0LkSdiBVANhSm22uY1\",\n            \"severity\": \"0\"\n          }\n        ]\n      },\n      \"packageContent\": \"http://LRcQxoQDzkxAQuxMukv.nrsRusrnBiHcDw,HArUKfoG,VbLK\"\n    }\n  ],\n  \"lower\": \"string\",\n  \"parent\": \"https://olpINeBF.quYFyV5U.dMw-gfHLdQ3Qcf1CGzkOKLPgqb,4hwZsRmG5ByiNA06\",\n  \"upper\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4a6f858-303c-4710-a7e3-40b69846989e",
+              "name": "The requested page does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "page",
+                    ":lower",
+                    "{{upper}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lower",
+                      "description": "(Required) The lowest SemVer 2.0.0 version in the page (inclusive)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4f5fa1a-44ad-4a36-96c5-21c6ef165417",
+          "name": "Get a registration leaf",
+          "request": {
+            "name": "Get a registration leaf",
+            "description": {
+              "content": "Retrieves a registration leaf containing information about a specific package version. The URL to a registration leaf is discovered from a registration page and should not be constructed by clients.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":lowerId",
+                "{{version}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "lowerId",
+                  "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b60bdc1e-7ccc-458b-9e7a-2c4d74df8a21",
+              "name": "The registration leaf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "{{version}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@id\": \"https://YbvfhBgjTcSI.atZOo1gILpoRI9GZv,oJXUd.NsFx1SEqE6yYR22\",\n  \"catalogEntry\": \"https://jVjod.wneT8qR5ip.\",\n  \"listed\": true,\n  \"packageContent\": \"http://LWXCAwpdIBQFHsAuZCR.ubijfsF+At7Xcz9nyMPksQhRMbq25WmZXRvAyOfneuXebc0155+PTgnCbfvn,oX-e\",\n  \"published\": \"2020-03-19T07:33:04.207Z\",\n  \"registration\": \"https://UpamQwmFg.tuoiFdYFAffVwY3D6CsKjJQEE1oy7okfPQWQ80YAGx3V4Cma3-mHpiHd4ZIt8zycT3GEHpvK7B1XyOXEb\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3754089d-7ffb-4e03-a430-1223b0ecb4f7",
+              "name": "The requested package version does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":lowerId",
+                    "{{version}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "lowerId",
+                      "description": "(Required) The package ID, lowercased using .NET ToLowerInvariant() rules."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nuget.org/v3/registration5-gz-semver2",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The highest SemVer 2.0.0 version in the page (inclusive).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "upper"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The normalized, lowercased package version.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "version"
+    }
+  ],
+  "info": {
+    "_postman_id": "6c9105ec-1d57-4c0d-a5d3-372c73f7373f",
+    "name": "NuGet Package Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NuGet Package Metadata API, accessed through the RegistrationsBaseUrl resource, provides detailed metadata about packages available on a NuGet package source. It returns registration information including all available versions of a package, their dependencies, download URLs, descriptions, authors, license information, deprecation status, and vulnerability data. The registration data is organized into a hierarchy of index, pages, and leaves, allowing efficient retrieval of metadata for packages that may have hundreds of published versions.\n\nContact Support:\n Name: NuGet Support",
+      "type": "text/plain"
+    }
+  }
+}

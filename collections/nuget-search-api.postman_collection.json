@@ -1,0 +1,409 @@
+{
+  "item": [
+    {
+      "id": "5ed16315-906c-4920-950c-c0a3b3ef8b6e",
+      "name": "Autocomplete",
+      "description": {
+        "content": "Autocomplete package IDs and enumerate package versions for typeahead and discovery features.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "83e7bb41-4899-4c57-a6f7-6bcad76f3dc1",
+          "name": "Autocomplete package IDs",
+          "request": {
+            "name": "Autocomplete package IDs",
+            "description": {
+              "content": "Searches for package IDs matching a substring. This endpoint supports typeahead features in user interfaces integrated with a NuGet package source. Packages with only unlisted versions do not appear in results. The base URL for this endpoint must be obtained from the service index using the SearchAutocompleteService resource type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autocomplete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "The search terms used to filter packages. If not provided, all packages are returned within the boundaries of skip and take."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "The number of results to skip for pagination. Defaults to 0. On nuget.org, limited to 3000."
+                },
+                {
+                  "disabled": false,
+                  "key": "take",
+                  "value": "<integer>",
+                  "description": "The number of results to return for pagination. The server may impose a maximum value. On nuget.org, limited to 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "prerelease",
+                  "value": "false",
+                  "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+                },
+                {
+                  "disabled": false,
+                  "key": "semVerLevel",
+                  "value": "<string>",
+                  "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+                },
+                {
+                  "disabled": false,
+                  "key": "packageType",
+                  "value": "<string>",
+                  "description": "The package type name to filter results. Added in SearchQueryService/3.5.0. If empty or not provided, no filter is applied."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1c76faf-0165-4649-8439-9c0de3cec281",
+              "name": "Successful autocomplete results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "take",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "prerelease",
+                      "value": "false"
+                    },
+                    {
+                      "key": "semVerLevel",
+                      "value": "2.0.0"
+                    },
+                    {
+                      "key": "packageType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalHits\": 7808,\n  \"data\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2aa1668b-2bb0-4076-846c-090e54d8750e",
+          "name": "Enumerate package versions",
+          "request": {
+            "name": "Enumerate package versions",
+            "description": {
+              "content": "Enumerates all listed versions for a given package ID. Unlisted versions do not appear in the results. This endpoint uses the same SearchAutocompleteService base URL with the id parameter instead of the q parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autocomplete-versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) The package ID to fetch versions for."
+                },
+                {
+                  "disabled": false,
+                  "key": "prerelease",
+                  "value": "false",
+                  "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+                },
+                {
+                  "disabled": false,
+                  "key": "semVerLevel",
+                  "value": "<string>",
+                  "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26d0b48d-fa97-4fb7-bf9d-934a2f4e207b",
+              "name": "Successful version enumeration results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autocomplete-versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "prerelease",
+                      "value": "false"
+                    },
+                    {
+                      "key": "semVerLevel",
+                      "value": "2.0.0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6d27ca33-5996-49a8-908e-08e207925fc0",
+      "name": "Search",
+      "description": {
+        "content": "Search for packages by keyword, filter by various criteria, and retrieve paginated results with full package metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9149d52a-c117-4a2b-b871-b265200ed489",
+          "name": "Search for packages",
+          "request": {
+            "name": "Search for packages",
+            "description": {
+              "content": "Queries for a page of packages matching a specified search query. Results are grouped by package ID and include metadata from the latest version. Unlisted packages never appear in search results. The base URL for this endpoint must be obtained from the service index using the SearchQueryService resource type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "The search terms used to filter packages. If not provided, all packages are returned within the boundaries of skip and take."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "The number of results to skip for pagination. Defaults to 0. On nuget.org, limited to 3000."
+                },
+                {
+                  "disabled": false,
+                  "key": "take",
+                  "value": "<integer>",
+                  "description": "The number of results to return for pagination. The server may impose a maximum value. On nuget.org, limited to 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "prerelease",
+                  "value": "false",
+                  "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+                },
+                {
+                  "disabled": false,
+                  "key": "semVerLevel",
+                  "value": "<string>",
+                  "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+                },
+                {
+                  "disabled": false,
+                  "key": "packageType",
+                  "value": "<string>",
+                  "description": "The package type name to filter results. Added in SearchQueryService/3.5.0. If empty or not provided, no filter is applied."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b9ec0dba-9d73-4bdb-a3cb-2d53e9bf19ec",
+              "name": "Successful search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "take",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "prerelease",
+                      "value": "false"
+                    },
+                    {
+                      "key": "semVerLevel",
+                      "value": "2.0.0"
+                    },
+                    {
+                      "key": "packageType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalHits\": 7097,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"version\": \"string\",\n      \"versions\": [\n        {\n          \"@id\": \"https://zRaGkYICZefuZhWvkVPHRRwDBb.fbsEsuS3HjCJit6Rn9NxK7qTSEPGkVhgz\",\n          \"version\": \"string\",\n          \"downloads\": 1032\n        },\n        {\n          \"@id\": \"https://QuXLjqhPZvFyJXyX.kdbjMg4URS+nwp-CmFIMENv.UzytlqsNGYD+qbEpT,jSAi+8heMnud,O0au5HpGtS-xQbPnl\",\n          \"version\": \"string\",\n          \"downloads\": 4564\n        }\n      ],\n      \"packageTypes\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"description\": \"string\",\n      \"authors\": \"string\",\n      \"iconUrl\": \"http://ZLgLmWyFkmTRrGwAxHfTLsiOjjCyawyI.gsGw8UU65x.jkM0ZcEv1xmED\",\n      \"licenseUrl\": \"https://mqdnulnWwIgjmABmWkTCZ.nzlQAGKSRFD-zaUVeGbAElUpCV3NGsi0rbp\",\n      \"owners\": \"string\",\n      \"projectUrl\": \"http://iWXGApkmFaUSWFCknMeYHC.tyduVXfuLhTFhS4jyxVUpDg3dpyPxKSCGN,PU2JYbNRN8chYYnXBvVQPld9XlwWP+\",\n      \"registration\": \"https://LGFbBZWKZoEkXojNZgmnLHRT.suouLeFynt\",\n      \"summary\": \"string\",\n      \"tags\": \"string\",\n      \"title\": \"string\",\n      \"totalDownloads\": 9632,\n      \"verified\": true\n    },\n    {\n      \"id\": \"string\",\n      \"version\": \"string\",\n      \"versions\": [\n        {\n          \"@id\": \"http://KoVAKvMbetjithLaQIDYaXfcH.yaqEw7eFRRmXcoTtkcXxD.UXUfqy.luXg\",\n          \"version\": \"string\",\n          \"downloads\": 1103\n        },\n        {\n          \"@id\": \"https://DN.qyzMc71HQO9y\",\n          \"version\": \"string\",\n          \"downloads\": 5886\n        }\n      ],\n      \"packageTypes\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"description\": \"string\",\n      \"authors\": \"string\",\n      \"iconUrl\": \"http://RpfQoTFrdAEb.qdfZ4uqxhPzUBh6ujPNmtkdwsm3y4kf8joh1xJ-ElrRIj\",\n      \"licenseUrl\": \"http://XYKiSGOYWIVwfDpwDhpmQFDpebaz.hurAg3E+E2msmk1vFhTkx4GVrdul\",\n      \"owners\": \"string\",\n      \"projectUrl\": \"http://LzSrCbuZhgk.bfcRv1Ux8I-jy4ej1+kWt9WILS4,FB3pC1z\",\n      \"registration\": \"http://fyExizjJT.kqo7Rkyljh277G17mcdaZnzyghptOhQZrA,\",\n      \"summary\": \"string\",\n      \"tags\": \"string\",\n      \"title\": \"string\",\n      \"totalDownloads\": 9664,\n      \"verified\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://azuresearch-usnc.nuget.org",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "93c1e280-1ba3-43aa-92aa-4637e8541c49",
+    "name": "NuGet Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NuGet Search API allows clients to query for packages available on a NuGet package source using the SearchQueryService resource found in the service index. It supports filtering by keyword, target framework, prerelease status, and package type, and returns paginated results with package metadata including versions, descriptions, download counts, and dependency information. This API also provides an autocomplete service for discovering package IDs and versions by substring, powering the search and typeahead experience in NuGet client tools.\n\nContact Support:\n Name: NuGet Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NuGet Package Metadata API",
+    "version": "3.6.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get registration index for a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/registration5-gz-semver2/:lowerId/index.json",
+            "params": [
+              {
+                "name": "lowerId",
+                "value": "",
+                "type": "path",
+                "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
+              }
+            ]
+          },
+          "docs": "Retrieves the registration index for a given package ID. The index contains a list of registration pages, each covering a range of package versions. Pages may inline their leaf data or require separate requests. On nuget.org, packages with 128 or more versions are broken into pages of 64 versions each."
+        },
+        {
+          "info": {
+            "name": "Get a registration page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/registration5-gz-semver2/:lowerId/page/:lower/:upper.json",
+            "params": [
+              {
+                "name": "lowerId",
+                "value": "",
+                "type": "path",
+                "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
+              },
+              {
+                "name": "lower",
+                "value": "",
+                "type": "path",
+                "description": "The lowest SemVer 2.0.0 version in the page (inclusive)."
+              },
+              {
+                "name": "upper",
+                "value": "",
+                "type": "path",
+                "description": "The highest SemVer 2.0.0 version in the page (inclusive)."
+              }
+            ]
+          },
+          "docs": "Retrieves a registration page containing registration leaves for a range of package versions. The URL to a registration page is discovered from the registration index and should not be constructed by clients."
+        },
+        {
+          "info": {
+            "name": "Get a registration leaf",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/registration5-gz-semver2/:lowerId/:version.json",
+            "params": [
+              {
+                "name": "lowerId",
+                "value": "",
+                "type": "path",
+                "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The normalized, lowercased package version."
+              }
+            ]
+          },
+          "docs": "Retrieves a registration leaf containing information about a specific package version. The URL to a registration leaf is discovered from a registration page and should not be constructed by clients."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

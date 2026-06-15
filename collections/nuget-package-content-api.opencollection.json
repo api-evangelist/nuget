@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NuGet Package Content API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Package Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enumerate package versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3-flatcontainer/:lowerId/index.json",
+            "params": [
+              {
+                "name": "lowerId",
+                "value": "",
+                "type": "path",
+                "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
+              }
+            ]
+          },
+          "docs": "Lists all available versions (both listed and unlisted) of a package. The versions returned can be used to construct URLs for downloading specific package content or manifests. Returns a 404 if the package source has no versions of the provided package ID."
+        },
+        {
+          "info": {
+            "name": "Download package content (.nupkg)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3-flatcontainer/:lowerId/:lowerVersion/:lowerId.:lowerVersion.nupkg",
+            "params": [
+              {
+                "name": "lowerId",
+                "value": "",
+                "type": "path",
+                "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
+              },
+              {
+                "name": "lowerVersion",
+                "value": "",
+                "type": "path",
+                "description": "The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded."
+              }
+            ]
+          },
+          "docs": "Downloads the package content file (.nupkg) for a specific package ID and version. Both the package ID and version must be lowercased and the version must be normalized according to NuGet version normalization rules."
+        },
+        {
+          "info": {
+            "name": "Download package manifest (.nuspec)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3-flatcontainer/:lowerId/:lowerVersion/:lowerId.nuspec",
+            "params": [
+              {
+                "name": "lowerId",
+                "value": "",
+                "type": "path",
+                "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
+              },
+              {
+                "name": "lowerVersion",
+                "value": "",
+                "type": "path",
+                "description": "The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded."
+              }
+            ]
+          },
+          "docs": "Downloads the package manifest file (.nuspec) for a specific package ID and version. The .nuspec is an XML document containing the package metadata as originally authored. Both the package ID and version must be lowercased and the version normalized."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
