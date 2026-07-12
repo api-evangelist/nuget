@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/nuget-server-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: X-NuGet-ApiKey
+  description: An API key obtained from the NuGet package source. Required for push, delete,
+    and relist operations.
+  sources:
+  - openapi/nuget-server-api-openapi.yml
