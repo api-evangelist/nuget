@@ -119,6 +119,8 @@ apis:
       - type: OpenAPI
         url: openapi/nuget-package-content-api-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/nuget-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/nuget-vulnerability-disclosure.yml
   - type: DomainSecurity
