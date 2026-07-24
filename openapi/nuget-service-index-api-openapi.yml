@@ -1,0 +1,69 @@
+openapi: 3.1.0
+info:
+  title: NuGet Catalog Autocomplete Service Index API
+  description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
+  version: 3.0.0
+  contact:
+    name: NuGet Support
+    url: https://github.com/NuGet/Home/issues
+  termsOfService: https://www.nuget.org/policies/Terms
+servers:
+- url: https://api.nuget.org/v3/catalog0
+  description: NuGet.org Catalog
+security: []
+tags:
+- name: Service Index
+  description: The service index is the entry point for the NuGet V3 API. It is a JSON document that lists all available resources and their capabilities.
+paths:
+  /index.json:
+    get:
+      operationId: getServiceIndex
+      summary: Get the service index
+      description: Retrieves the service index, which is a JSON document listing all available resources on the NuGet package source. Clients use this document to discover the URLs for search, registration, package content, catalog, and other API resources.
+      tags:
+      - Service Index
+      responses:
+        '200':
+          description: The service index document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceIndex'
+components:
+  schemas:
+    ServiceIndex:
+      type: object
+      description: The service index document that lists all available NuGet API resources.
+      required:
+      - version
+      - resources
+      properties:
+        version:
+          type: string
+          description: The schema version of the service index. The major version must be 3.
+          example: 3.0.0
+        resources:
+          type: array
+          description: The list of resources available on this package source.
+          items:
+            $ref: '#/components/schemas/ServiceIndexResource'
+    ServiceIndexResource:
+      type: object
+      description: A resource available on the NuGet package source.
+      required:
+      - '@id'
+      - '@type'
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the resource.
+        '@type':
+          type: string
+          description: A string representing the resource type, such as SearchQueryService, RegistrationsBaseUrl, PackageBaseAddress, PackagePublish, or Catalog.
+        comment:
+          type: string
+          description: A human-readable description of the resource.
+externalDocs:
+  description: NuGet Catalog API Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource

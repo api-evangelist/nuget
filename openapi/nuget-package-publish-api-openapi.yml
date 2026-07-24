@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: NuGet Catalog Autocomplete Package Publish API
+  description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
+  version: 3.0.0
+  contact:
+    name: NuGet Support
+    url: https://github.com/NuGet/Home/issues
+  termsOfService: https://www.nuget.org/policies/Terms
+servers:
+- url: https://api.nuget.org/v3/catalog0
+  description: NuGet.org Catalog
+security: []
+tags:
+- name: Package Publish
+  description: Endpoints for pushing new packages, deleting or unlisting packages, and relisting previously unlisted packages on a NuGet feed.
+paths:
+  /package:
+    put:
+      operationId: pushPackage
+      summary: Push a package
+      description: Pushes a new package to the NuGet feed. The request body must be a multipart form data payload where the first item is the raw bytes of the .nupkg file. If a package with the same ID and version already exists, the push will be rejected with a 409 status code.
+      tags:
+      - Package Publish
+      security:
+      - apiKey: []
+      parameters:
+      - $ref: '#/components/parameters/XNuGetProtocolVersion'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                package:
+                  type: string
+                  format: binary
+                  description: The .nupkg file to push to the package source.
+              required:
+              - package
+      responses:
+        '201':
+          description: The package was successfully pushed
+        '202':
+          description: The package was accepted but processing may still be incomplete
+        '400':
+          description: The provided package is invalid
+        '401':
+          description: The provided API key is invalid or missing
+        '403':
+          description: The action is not allowed with the provided credentials
+        '409':
+          description: A package with the provided ID and version already exists
+  /package/{id}/{version}:
+    delete:
+      operationId: deletePackage
+      summary: Delete or unlist a package
+      description: Deletes or unlists a package from the NuGet feed. On nuget.org, this operation unlists the package rather than performing a hard delete. Unlisted packages no longer appear in search results or the web interface but remain available for existing consumers.
+      tags:
+      - Package Publish
+      security:
+      - apiKey: []
+      parameters:
+      - $ref: '#/components/parameters/PackageId'
+      - $ref: '#/components/parameters/PackageVersion'
+      responses:
+        '204':
+          description: The package was successfully deleted or unlisted
+        '401':
+          description: The provided API key is invalid or missing
+        '403':
+          description: The action is not allowed with the provided credentials
+        '404':
+          description: No package with the provided ID and version exists
+    post:
+      operationId: relistPackage
+      summary: Relist a package
+      description: Relists a previously unlisted package, making it visible again in search results. If the package is already listed, the request still succeeds.
+      tags:
+      - Package Publish
+      security:
+      - apiKey: []
+      parameters:
+      - $ref: '#/components/parameters/PackageId'
+      - $ref: '#/components/parameters/PackageVersion'
+      responses:
+        '200':
+          description: The package is now listed
+        '401':
+          description: The provided API key is invalid or missing
+        '403':
+          description: The action is not allowed with the provided credentials
+        '404':
+          description: No package with the provided ID and version exists
+components:
+  parameters:
+    PackageVersion:
+      name: version
+      in: path
+      required: true
+      description: The version of the package.
+      schema:
+        type: string
+    PackageId:
+      name: id
+      in: path
+      required: true
+      description: The ID of the package.
+      schema:
+        type: string
+    XNuGetProtocolVersion:
+      name: X-NuGet-Protocol-Version
+      in: header
+      required: false
+      description: Required in certain cases on nuget.org to indicate protocol version.
+      schema:
+        type: string
+externalDocs:
+  description: NuGet Catalog API Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource

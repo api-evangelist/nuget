@@ -1,0 +1,399 @@
+openapi: 3.1.0
+info:
+  title: NuGet Catalog Autocomplete Registration API
+  description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
+  version: 3.0.0
+  contact:
+    name: NuGet Support
+    url: https://github.com/NuGet/Home/issues
+  termsOfService: https://www.nuget.org/policies/Terms
+servers:
+- url: https://api.nuget.org/v3/catalog0
+  description: NuGet.org Catalog
+security: []
+tags:
+- name: Registration
+  description: Package registration endpoints for fetching metadata about packages, organized into an index, pages, and leaves hierarchy.
+paths:
+  /{lowerId}/index.json:
+    get:
+      operationId: getRegistrationIndex
+      summary: Get registration index for a package
+      description: Retrieves the registration index for a given package ID. The index contains a list of registration pages, each covering a range of package versions. Pages may inline their leaf data or require separate requests. On nuget.org, packages with 128 or more versions are broken into pages of 64 versions each.
+      tags:
+      - Registration
+      parameters:
+      - $ref: '#/components/parameters/LowerId'
+      responses:
+        '200':
+          description: The registration index for the package
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationIndex'
+        '404':
+          description: No package with the given ID exists
+  /{lowerId}/page/{lower}/{upper}.json:
+    get:
+      operationId: getRegistrationPage
+      summary: Get a registration page
+      description: Retrieves a registration page containing registration leaves for a range of package versions. The URL to a registration page is discovered from the registration index and should not be constructed by clients.
+      tags:
+      - Registration
+      parameters:
+      - $ref: '#/components/parameters/LowerId'
+      - name: lower
+        in: path
+        required: true
+        description: The lowest SemVer 2.0.0 version in the page (inclusive).
+        schema:
+          type: string
+      - name: upper
+        in: path
+        required: true
+        description: The highest SemVer 2.0.0 version in the page (inclusive).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The registration page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationPage'
+        '404':
+          description: The requested page does not exist
+  /{lowerId}/{version}.json:
+    get:
+      operationId: getRegistrationLeaf
+      summary: Get a registration leaf
+      description: Retrieves a registration leaf containing information about a specific package version. The URL to a registration leaf is discovered from a registration page and should not be constructed by clients.
+      tags:
+      - Registration
+      parameters:
+      - $ref: '#/components/parameters/LowerId'
+      - name: version
+        in: path
+        required: true
+        description: The normalized, lowercased package version.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The registration leaf
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationLeafDocument'
+        '404':
+          description: The requested package version does not exist
+components:
+  schemas:
+    Vulnerability:
+      type: object
+      description: A security vulnerability associated with a package version.
+      required:
+      - advisoryUrl
+      - severity
+      properties:
+        advisoryUrl:
+          type: string
+          format: uri
+          description: Location of the security advisory for the package.
+        severity:
+          type: string
+          description: Severity of the advisory. 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+    Deprecation:
+      type: object
+      description: Deprecation information for a package version.
+      required:
+      - reasons
+      properties:
+        reasons:
+          type: array
+          description: The reasons why the package was deprecated. Values include Legacy, CriticalBugs, and Other.
+          items:
+            type: string
+            enum:
+            - Legacy
+            - CriticalBugs
+            - Other
+        message:
+          type: string
+          description: Additional details about the deprecation.
+        alternatePackage:
+          $ref: '#/components/schemas/AlternatePackage'
+    AlternatePackage:
+      type: object
+      description: A recommended replacement for a deprecated package.
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The ID of the alternate package.
+        range:
+          type: string
+          description: The allowed version range, or * if any version is accepted.
+    RegistrationLeafDocument:
+      type: object
+      description: A standalone registration leaf document for a specific package version.
+      required:
+      - '@id'
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration leaf.
+        catalogEntry:
+          type: string
+          format: uri
+          description: The URL to the catalog entry that produced this leaf.
+        listed:
+          type: boolean
+          description: Whether the package is listed. Considered listed if absent.
+        packageContent:
+          type: string
+          format: uri
+          description: The URL to the package content (.nupkg).
+        published:
+          type: string
+          format: date-time
+          description: An ISO 8601 timestamp of when the package was published. Set to year 1900 on nuget.org when the package is unlisted.
+        registration:
+          type: string
+          format: uri
+          description: The URL to the registration index.
+    RegistrationPage:
+      type: object
+      description: A registration page fetched separately from the index.
+      required:
+      - '@id'
+      - count
+      - items
+      - lower
+      - parent
+      - upper
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration page.
+        count:
+          type: integer
+          description: The number of registration leaves in the page.
+        items:
+          type: array
+          description: The array of registration leaves.
+          items:
+            $ref: '#/components/schemas/RegistrationLeaf'
+        lower:
+          type: string
+          description: The lowest SemVer 2.0.0 version in the page (inclusive).
+        parent:
+          type: string
+          format: uri
+          description: The URL to the registration index.
+        upper:
+          type: string
+          description: The highest SemVer 2.0.0 version in the page (inclusive).
+    RegistrationLeaf:
+      type: object
+      description: A registration leaf representing data for a single package version within a page.
+      required:
+      - '@id'
+      - catalogEntry
+      - packageContent
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration leaf.
+        catalogEntry:
+          $ref: '#/components/schemas/CatalogEntry'
+        packageContent:
+          type: string
+          format: uri
+          description: The URL to the package content (.nupkg).
+    RegistrationPageEntry:
+      type: object
+      description: A registration page entry within the index, covering a range of package versions.
+      required:
+      - '@id'
+      - count
+      - lower
+      - upper
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration page.
+        count:
+          type: integer
+          description: The number of registration leaves in the page.
+        items:
+          type: array
+          description: The array of registration leaves. Present when leaves are inlined into the index, absent when a separate request is needed.
+          items:
+            $ref: '#/components/schemas/RegistrationLeaf'
+        lower:
+          type: string
+          description: The lowest SemVer 2.0.0 version in the page (inclusive).
+        parent:
+          type: string
+          format: uri
+          description: The URL to the registration index. Only present when items are inlined.
+        upper:
+          type: string
+          description: The highest SemVer 2.0.0 version in the page (inclusive).
+    DependencyGroup:
+      type: object
+      description: A group of package dependencies applicable to a specific target framework.
+      properties:
+        targetFramework:
+          type: string
+          description: The target framework these dependencies are applicable to. If not specified, the group applies to all target frameworks.
+        dependencies:
+          type: array
+          description: The list of package dependencies.
+          items:
+            $ref: '#/components/schemas/Dependency'
+    CatalogEntry:
+      type: object
+      description: The catalog entry containing detailed package metadata for a specific version.
+      required:
+      - '@id'
+      - id
+      - version
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the document used to produce this object.
+        authors:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The author or authors of the package.
+        dependencyGroups:
+          type: array
+          description: The dependencies of the package, grouped by target framework.
+          items:
+            $ref: '#/components/schemas/DependencyGroup'
+        deprecation:
+          $ref: '#/components/schemas/Deprecation'
+        description:
+          type: string
+          description: The package description.
+        iconUrl:
+          type: string
+          format: uri
+          description: The URL to the package icon.
+        id:
+          type: string
+          description: The ID of the package.
+        language:
+          type: string
+          description: The language of the package.
+        licenseUrl:
+          type: string
+          format: uri
+          description: The URL to the package license.
+        licenseExpression:
+          type: string
+          description: A NuGet license expression string.
+        listed:
+          type: boolean
+          description: Whether the package is listed. Considered listed if absent.
+        minClientVersion:
+          type: string
+          description: The minimum NuGet client version required to use this package.
+        packageContent:
+          type: string
+          format: uri
+          description: The URL to the package content (.nupkg). Included for legacy compatibility.
+        projectUrl:
+          type: string
+          format: uri
+          description: The URL to the project page.
+        published:
+          type: string
+          format: date-time
+          description: An ISO 8601 timestamp of when the package was published.
+        readmeUrl:
+          type: string
+          format: uri
+          description: A URL for the rendered view of the package README.
+        requireLicenseAcceptance:
+          type: boolean
+          description: Whether the package requires license acceptance before installation.
+        summary:
+          type: string
+          description: A summary of the package.
+        tags:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: Tags associated with the package.
+        title:
+          type: string
+          description: The title of the package.
+        version:
+          type: string
+          description: The full version string after normalization, which may include SemVer 2.0.0 build metadata.
+        vulnerabilities:
+          type: array
+          description: Security vulnerabilities associated with this package version.
+          items:
+            $ref: '#/components/schemas/Vulnerability'
+    RegistrationIndex:
+      type: object
+      description: The entry point for package metadata, shared by all packages on a source with the same package ID.
+      required:
+      - count
+      - items
+      properties:
+        count:
+          type: integer
+          description: The number of registration pages in the index.
+        items:
+          type: array
+          description: The array of registration pages.
+          items:
+            $ref: '#/components/schemas/RegistrationPageEntry'
+    Dependency:
+      type: object
+      description: A package dependency.
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The ID of the package dependency.
+        range:
+          type: string
+          description: The allowed version range of the dependency. Defaults to any version if absent.
+        registration:
+          type: string
+          format: uri
+          description: The URL to the registration index for this dependency.
+  parameters:
+    LowerId:
+      name: lowerId
+      in: path
+      required: true
+      description: The package ID, lowercased using .NET ToLowerInvariant() rules.
+      schema:
+        type: string
+externalDocs:
+  description: NuGet Catalog API Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource

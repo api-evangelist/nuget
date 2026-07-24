@@ -1,0 +1,140 @@
+openapi: 3.1.0
+info:
+  title: NuGet Catalog Autocomplete API
+  description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
+  version: 3.0.0
+  contact:
+    name: NuGet Support
+    url: https://github.com/NuGet/Home/issues
+  termsOfService: https://www.nuget.org/policies/Terms
+servers:
+- url: https://api.nuget.org/v3/catalog0
+  description: NuGet.org Catalog
+security: []
+tags:
+- name: Autocomplete
+  description: Autocomplete package IDs and enumerate package versions for typeahead and discovery features.
+paths:
+  /autocomplete:
+    get:
+      operationId: autocompletePackageIds
+      summary: Autocomplete package IDs
+      description: Searches for package IDs matching a substring. This endpoint supports typeahead features in user interfaces integrated with a NuGet package source. Packages with only unlisted versions do not appear in results. The base URL for this endpoint must be obtained from the service index using the SearchAutocompleteService resource type.
+      tags:
+      - Autocomplete
+      parameters:
+      - $ref: '#/components/parameters/SearchQuery'
+      - $ref: '#/components/parameters/Skip'
+      - $ref: '#/components/parameters/Take'
+      - $ref: '#/components/parameters/Prerelease'
+      - $ref: '#/components/parameters/SemVerLevel'
+      - $ref: '#/components/parameters/PackageType'
+      responses:
+        '200':
+          description: Successful autocomplete results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutocompleteResponse'
+  /autocomplete-versions:
+    get:
+      operationId: enumeratePackageVersions
+      summary: Enumerate package versions
+      description: Enumerates all listed versions for a given package ID. Unlisted versions do not appear in the results. This endpoint uses the same SearchAutocompleteService base URL with the id parameter instead of the q parameter.
+      tags:
+      - Autocomplete
+      parameters:
+      - name: id
+        in: query
+        required: true
+        description: The package ID to fetch versions for.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Prerelease'
+      - $ref: '#/components/parameters/SemVerLevel'
+      responses:
+        '200':
+          description: Successful version enumeration results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionEnumerationResponse'
+components:
+  parameters:
+    PackageType:
+      name: packageType
+      in: query
+      required: false
+      description: The package type name to filter results. Added in SearchQueryService/3.5.0. If empty or not provided, no filter is applied.
+      schema:
+        type: string
+    SearchQuery:
+      name: q
+      in: query
+      required: false
+      description: The search terms used to filter packages. If not provided, all packages are returned within the boundaries of skip and take.
+      schema:
+        type: string
+    Skip:
+      name: skip
+      in: query
+      required: false
+      description: The number of results to skip for pagination. Defaults to 0. On nuget.org, limited to 3000.
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+    Take:
+      name: take
+      in: query
+      required: false
+      description: The number of results to return for pagination. The server may impose a maximum value. On nuget.org, limited to 1000.
+      schema:
+        type: integer
+        minimum: 1
+    Prerelease:
+      name: prerelease
+      in: query
+      required: false
+      description: When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages.
+      schema:
+        type: boolean
+        default: false
+    SemVerLevel:
+      name: semVerLevel
+      in: query
+      required: false
+      description: A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages.
+      schema:
+        type: string
+        example: 2.0.0
+  schemas:
+    AutocompleteResponse:
+      type: object
+      description: The response from a package ID autocomplete query.
+      required:
+      - totalHits
+      - data
+      properties:
+        totalHits:
+          type: integer
+          description: The total number of matches, disregarding skip and take.
+        data:
+          type: array
+          description: The package IDs matched by the request.
+          items:
+            type: string
+    VersionEnumerationResponse:
+      type: object
+      description: The response from a package version enumeration query.
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          description: The package versions matched by the request.
+          items:
+            type: string
+externalDocs:
+  description: NuGet Catalog API Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource

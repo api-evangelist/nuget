@@ -1,44 +1,29 @@
 openapi: 3.1.0
 info:
-  title: NuGet Package Content API
-  description: >-
-    The NuGet Package Content API, accessed through the PackageBaseAddress
-    resource (also known as the flat container), allows clients to download
-    package content files (.nupkg), package manifests (.nuspec), and enumerate
-    all available versions for a given package ID. The flat container
-    structure organizes packages by lowercase package ID and version,
-    providing direct access to binary package files.
-  version: '3.0.0'
+  title: NuGet Catalog Autocomplete Package Content API
+  description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
+  version: 3.0.0
   contact:
     name: NuGet Support
     url: https://github.com/NuGet/Home/issues
   termsOfService: https://www.nuget.org/policies/Terms
-externalDocs:
-  description: NuGet Package Content API Documentation
-  url: https://learn.microsoft.com/en-us/nuget/api/package-base-address-resource
 servers:
-  - url: https://api.nuget.org/v3-flatcontainer
-    description: NuGet.org Flat Container
-tags:
-  - name: Package Content
-    description: >-
-      Endpoints for enumerating package versions and downloading package
-      content files (.nupkg) and manifests (.nuspec).
+- url: https://api.nuget.org/v3/catalog0
+  description: NuGet.org Catalog
 security: []
+tags:
+- name: Package Content
+  description: Endpoints for enumerating package versions and downloading package content files (.nupkg) and manifests (.nuspec).
 paths:
   /{lowerId}/index.json:
     get:
       operationId: listPackageVersions
       summary: Enumerate package versions
-      description: >-
-        Lists all available versions (both listed and unlisted) of a package.
-        The versions returned can be used to construct URLs for downloading
-        specific package content or manifests. Returns a 404 if the package
-        source has no versions of the provided package ID.
+      description: Lists all available versions (both listed and unlisted) of a package. The versions returned can be used to construct URLs for downloading specific package content or manifests. Returns a 404 if the package source has no versions of the provided package ID.
       tags:
-        - Package Content
+      - Package Content
       parameters:
-        - $ref: '#/components/parameters/LowerId'
+      - $ref: '#/components/parameters/LowerId'
       responses:
         '200':
           description: The list of available versions
@@ -52,16 +37,12 @@ paths:
     get:
       operationId: downloadPackage
       summary: Download package content (.nupkg)
-      description: >-
-        Downloads the package content file (.nupkg) for a specific package ID
-        and version. Both the package ID and version must be lowercased and
-        the version must be normalized according to NuGet version
-        normalization rules.
+      description: Downloads the package content file (.nupkg) for a specific package ID and version. Both the package ID and version must be lowercased and the version must be normalized according to NuGet version normalization rules.
       tags:
-        - Package Content
+      - Package Content
       parameters:
-        - $ref: '#/components/parameters/LowerId'
-        - $ref: '#/components/parameters/LowerVersion'
+      - $ref: '#/components/parameters/LowerId'
+      - $ref: '#/components/parameters/LowerVersion'
       responses:
         '200':
           description: The package content binary stream
@@ -76,16 +57,12 @@ paths:
     get:
       operationId: downloadPackageManifest
       summary: Download package manifest (.nuspec)
-      description: >-
-        Downloads the package manifest file (.nuspec) for a specific package
-        ID and version. The .nuspec is an XML document containing the package
-        metadata as originally authored. Both the package ID and version must
-        be lowercased and the version normalized.
+      description: Downloads the package manifest file (.nuspec) for a specific package ID and version. The .nuspec is an XML document containing the package metadata as originally authored. Both the package ID and version must be lowercased and the version normalized.
       tags:
-        - Package Content
+      - Package Content
       parameters:
-        - $ref: '#/components/parameters/LowerId'
-        - $ref: '#/components/parameters/LowerVersion'
+      - $ref: '#/components/parameters/LowerId'
+      - $ref: '#/components/parameters/LowerVersion'
       responses:
         '200':
           description: The package manifest XML document
@@ -96,35 +73,33 @@ paths:
         '404':
           description: The package does not exist on the package source
 components:
+  schemas:
+    VersionIndex:
+      type: object
+      description: A list of all available versions for a package.
+      required:
+      - versions
+      properties:
+        versions:
+          type: array
+          description: The lowercased, normalized version strings available for download.
+          items:
+            type: string
   parameters:
-    LowerId:
-      name: lowerId
-      in: path
-      required: true
-      description: >-
-        The package ID, lowercased using .NET ToLowerInvariant() rules.
-      schema:
-        type: string
     LowerVersion:
       name: lowerVersion
       in: path
       required: true
-      description: >-
-        The package version, normalized and lowercased. SemVer 2.0.0 build
-        metadata must be excluded.
+      description: The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded.
       schema:
         type: string
-  schemas:
-    VersionIndex:
-      type: object
-      description: >-
-        A list of all available versions for a package.
-      required:
-        - versions
-      properties:
-        versions:
-          type: array
-          description: >-
-            The lowercased, normalized version strings available for download.
-          items:
-            type: string
+    LowerId:
+      name: lowerId
+      in: path
+      required: true
+      description: The package ID, lowercased using .NET ToLowerInvariant() rules.
+      schema:
+        type: string
+externalDocs:
+  description: NuGet Catalog API Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource
