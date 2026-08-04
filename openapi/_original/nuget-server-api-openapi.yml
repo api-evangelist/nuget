@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  title: NuGet Server API
+  description: >-
+    The NuGet Server API is a set of HTTP endpoints used to download packages,
+    fetch metadata, publish new packages, and perform other operations against
+    a NuGet package source. The V3 API uses JSON as its underlying media type
+    and is accessed through a service index located at
+    https://api.nuget.org/v3/index.json, which enumerates all available
+    resources and capabilities. This specification covers the service index
+    and package publish endpoints.
+  version: '3.0'
+  contact:
+    name: NuGet Support
+    url: https://github.com/NuGet/Home/issues
+  termsOfService: https://www.nuget.org/policies/Terms
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+externalDocs:
+  description: NuGet Server API Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/overview
+servers:
+  - url: https://api.nuget.org/v3
+    description: NuGet.org V3 API
+  - url: https://www.nuget.org/api/v2
+    description: NuGet.org Package Publish Endpoint
+tags:
+  - name: Package Publish
+    description: >-
+      Endpoints for pushing new packages, deleting or unlisting packages, and
+      relisting previously unlisted packages on a NuGet feed.
+  - name: Service Index
+    description: >-
+      The service index is the entry point for the NuGet V3 API. It is a JSON
+      document that lists all available resources and their capabilities.
+security: []
+paths:
+  /index.json:
+    get:
+      operationId: getServiceIndex
+      summary: Get the service index
+      description: >-
+        Retrieves the service index, which is a JSON document listing all
+        available resources on the NuGet package source. Clients use this
+        document to discover the URLs for search, registration, package
+        content, catalog, and other API resources.
+      tags:
+        - Service Index
+      responses:
+        '200':
+          description: The service index document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceIndex'
+  /package:
+    put:
+      operationId: pushPackage
+      summary: Push a package
+      description: >-
+        Pushes a new package to the NuGet feed. The request body must be a
+        multipart form data payload where the first item is the raw bytes
+        of the .nupkg file. If a package with the same ID and version already
+        exists, the push will be rejected with a 409 status code.
+      tags:
+        - Package Publish
+      security:
+        - apiKey: []
+      parameters:
+        - $ref: '#/components/parameters/XNuGetProtocolVersion'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                package:
+                  type: string
+                  format: binary
+                  description: >-
+                    The .nupkg file to push to the package source.
+              required:
+                - package
+      responses:
+        '201':
+          description: The package was successfully pushed
+        '202':
+          description: >-
+            The package was accepted but processing may still be incomplete
+        '400':
+          description: The provided package is invalid
+        '401':
+          description: The provided API key is invalid or missing
+        '403':
+          description: The action is not allowed with the provided credentials
+        '409':
+          description: A package with the provided ID and version already exists
+  /package/{id}/{version}:
+    delete:
+      operationId: deletePackage
+      summary: Delete or unlist a package
+      description: >-
+        Deletes or unlists a package from the NuGet feed. On nuget.org, this
+        operation unlists the package rather than performing a hard delete.
+        Unlisted packages no longer appear in search results or the web
+        interface but remain available for existing consumers.
+      tags:
+        - Package Publish
+      security:
+        - apiKey: []
+      parameters:
+        - $ref: '#/components/parameters/PackageId'
+        - $ref: '#/components/parameters/PackageVersion'
+      responses:
+        '204':
+          description: The package was successfully deleted or unlisted
+        '401':
+          description: The provided API key is invalid or missing
+        '403':
+          description: The action is not allowed with the provided credentials
+        '404':
+          description: No package with the provided ID and version exists
+    post:
+      operationId: relistPackage
+      summary: Relist a package
+      description: >-
+        Relists a previously unlisted package, making it visible again in
+        search results. If the package is already listed, the request still
+        succeeds.
+      tags:
+        - Package Publish
+      security:
+        - apiKey: []
+      parameters:
+        - $ref: '#/components/parameters/PackageId'
+        - $ref: '#/components/parameters/PackageVersion'
+      responses:
+        '200':
+          description: The package is now listed
+        '401':
+          description: The provided API key is invalid or missing
+        '403':
+          description: The action is not allowed with the provided credentials
+        '404':
+          description: No package with the provided ID and version exists
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-NuGet-ApiKey
+      in: header
+      description: >-
+        An API key obtained from the NuGet package source. Required for
+        push, delete, and relist operations.
+  parameters:
+    PackageId:
+      name: id
+      in: path
+      required: true
+      description: >-
+        The ID of the package.
+      schema:
+        type: string
+    PackageVersion:
+      name: version
+      in: path
+      required: true
+      description: >-
+        The version of the package.
+      schema:
+        type: string
+    XNuGetProtocolVersion:
+      name: X-NuGet-Protocol-Version
+      in: header
+      required: false
+      description: >-
+        Required in certain cases on nuget.org to indicate protocol version.
+      schema:
+        type: string
+  schemas:
+    ServiceIndex:
+      type: object
+      description: >-
+        The service index document that lists all available NuGet API resources.
+      required:
+        - version
+        - resources
+      properties:
+        version:
+          type: string
+          description: >-
+            The schema version of the service index. The major version must
+            be 3.
+          example: '3.0.0'
+        resources:
+          type: array
+          description: >-
+            The list of resources available on this package source.
+          items:
+            $ref: '#/components/schemas/ServiceIndexResource'
+    ServiceIndexResource:
+      type: object
+      description: >-
+        A resource available on the NuGet package source.
+      required:
+        - '@id'
+        - '@type'
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: >-
+            The URL to the resource.
+        '@type':
+          type: string
+          description: >-
+            A string representing the resource type, such as
+            SearchQueryService, RegistrationsBaseUrl, PackageBaseAddress,
+            PackagePublish, or Catalog.
+        comment:
+          type: string
+          description: >-
+            A human-readable description of the resource.
