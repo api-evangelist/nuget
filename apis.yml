@@ -165,6 +165,13 @@ apis:
   - type: Documentation
     url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
 common:
+  - type: CodeOfConduct
+    url: https://github.com/NuGet/NuGetGallery/blob/main/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/NuGet/NuGetGallery/blob/main/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/NuGet/NuGetGallery/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/nuget-agentic-access.yml
   - type: VulnerabilityDisclosure
