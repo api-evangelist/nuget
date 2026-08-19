@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "e7e17cbc-d219-47c2-a997-c1e6b28855e5",
+      "id": "3b22c305-d255-46c9-9da1-6db45d55ad28",
       "name": "Catalog",
       "description": {
         "content": "Endpoints for accessing the catalog index, pages, and individual leaf documents that record the full history of package events.",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "c4f02cdb-0078-4de8-b367-0cff9f6dad7d",
+          "id": "405e404e-c47f-4b00-bba9-f84e646fbdc2",
           "name": "Get the catalog index",
           "request": {
             "name": "Get the catalog index",
@@ -38,7 +38,7 @@
           },
           "response": [
             {
-              "id": "b1875d75-ec76-41f3-9798-9e858b2d8639",
+              "id": "d7056d36-2e2f-44a2-8c9b-e53395d23524",
               "name": "The catalog index document",
               "originalRequest": {
                 "url": {
@@ -68,7 +68,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"commitId\": \"string\",\n  \"commitTimeStamp\": \"1955-04-19T01:48:57.235Z\",\n  \"count\": 8885,\n  \"items\": [\n    {\n      \"@id\": \"https://QKSuKgoDyZlnfoqkRUGYXFyZ.ttlbHr1WRvRK\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"1965-09-04T06:52:58.022Z\",\n      \"count\": 9233\n    },\n    {\n      \"@id\": \"https://cYTQ.hhoTYPSsTrwj9jOWkMH,d+zQZgpjEe7or89KX0Kv\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"1985-09-29T10:14:34.447Z\",\n      \"count\": 244\n    }\n  ]\n}",
+              "body": "{\n  \"commitId\": \"string\",\n  \"commitTimeStamp\": \"1950-04-11T18:31:48.712Z\",\n  \"count\": 461,\n  \"items\": [\n    {\n      \"@id\": \"http://InwIpzaH.lrxwHk0J-y58OLtKUM15q4hrWdbT9ZXLyqRMdFHWusIOPVLwOg\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"1954-11-24T00:31:25.658Z\",\n      \"count\": 6751\n    },\n    {\n      \"@id\": \"http://VJnv.vmnzjNsfLBseqYSzBz9K++5qqcpvUAFyuucDpdcbYJJmjHk8NftuGe+w8jQ1\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"1948-03-24T05:47:48.953Z\",\n      \"count\": 4846\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -79,7 +79,7 @@
           }
         },
         {
-          "id": "7c397dcc-7273-43f4-8e86-b2266db4ec2d",
+          "id": "f559d524-7201-4834-adb9-29b6da0383cb",
           "name": "Get a catalog page",
           "request": {
             "name": "Get a catalog page",
@@ -108,7 +108,7 @@
           },
           "response": [
             {
-              "id": "9a1d74b1-691b-4c9c-a1a6-e6f69ddb5c9c",
+              "id": "35086383-5ad7-41c3-8ce6-ad4c0f1b9734",
               "name": "The catalog page document",
               "originalRequest": {
                 "url": {
@@ -138,7 +138,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"commitId\": \"string\",\n  \"commitTimeStamp\": \"1982-10-29T07:18:48.856Z\",\n  \"count\": 2842,\n  \"items\": [\n    {\n      \"@id\": \"https://glbCUJAQmHISaeXAkaQfqbcV.inoiSo5NaT-dKb\",\n      \"@type\": \"nuget:PackageDelete\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"2003-02-27T06:16:35.483Z\",\n      \"nuget:id\": \"string\",\n      \"nuget:version\": \"string\"\n    },\n    {\n      \"@id\": \"http://YvPPWVUgDrFs.jlsMGmyCTZ+I.SEWbb974Iahknj3vWl-t+K-SWy2SwMunRYEKx+5vOjaWTzfEimPfEVIVMXH9xwU3p\",\n      \"@type\": \"nuget:PackageDelete\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"1994-10-30T21:03:21.838Z\",\n      \"nuget:id\": \"string\",\n      \"nuget:version\": \"string\"\n    }\n  ],\n  \"parent\": \"http://vDNTcyYAstFZhsSTTROEnYRQXva.igzpkKkzDllGnNFCKrO,VoZ+AHTb5kd7ql7Gaw.XgetDzFg-ADVz\"\n}",
+              "body": "{\n  \"commitId\": \"string\",\n  \"commitTimeStamp\": \"1996-12-12T01:17:59.488Z\",\n  \"count\": 272,\n  \"items\": [\n    {\n      \"@id\": \"http://ZmNHK.rciqP1TR1TWjF7+w8m,jFiRk6G2eVyqpQKaGqeFu1F3ppQziJD\",\n      \"@type\": \"nuget:PackageDetails\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"1960-11-06T02:12:15.187Z\",\n      \"nuget:id\": \"string\",\n      \"nuget:version\": \"string\"\n    },\n    {\n      \"@id\": \"https://oNEwMTWKyaRLBzcNmmiJTcBJIPbIhS.tvsdUhluzBCR.QAD+giDofD4o+o00SaUZu9WBZFg3eagY3+j7qYtCWFsR4JIh6vSE\",\n      \"@type\": \"nuget:PackageDelete\",\n      \"commitId\": \"string\",\n      \"commitTimeStamp\": \"2006-12-17T19:06:38.352Z\",\n      \"nuget:id\": \"string\",\n      \"nuget:version\": \"string\"\n    }\n  ],\n  \"parent\": \"http://tupCaPJFZjmZffVEhtWFkKEHZ.nbKvFTfS4heDhcYFz8ZaCJ+yQB4ZOxTZRlsWd2\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -149,7 +149,7 @@
           }
         },
         {
-          "id": "6314776e-cd4e-42f5-a862-2f9e1bba58b2",
+          "id": "b3fcc55c-f92f-491b-925b-7fffb48abdb4",
           "name": "Get a catalog leaf",
           "request": {
             "name": "Get a catalog leaf",
@@ -188,7 +188,7 @@
           },
           "response": [
             {
-              "id": "9edca129-e0f3-473f-b1f2-a73a7f1f66f4",
+              "id": "5204db84-1156-468d-8376-83c3517dc085",
               "name": "The catalog leaf document",
               "originalRequest": {
                 "url": {
@@ -228,7 +228,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"@type\": \"string\",\n  \"catalog:commitId\": \"string\",\n  \"catalog:commitTimeStamp\": \"1949-07-03T21:09:43.984Z\",\n  \"id\": \"string\",\n  \"published\": \"1957-03-30T10:02:43.047Z\",\n  \"version\": \"string\",\n  \"packageHash\": \"string\",\n  \"packageHashAlgorithm\": \"string\",\n  \"packageSize\": 5524,\n  \"created\": \"1966-12-23T04:02:39.482Z\",\n  \"authors\": \"string\",\n  \"description\": \"string\",\n  \"dependencyGroups\": [\n    {\n      \"targetFramework\": \"string\",\n      \"dependencies\": [\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        }\n      ]\n    },\n    {\n      \"targetFramework\": \"string\",\n      \"dependencies\": [\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"deprecation\": {\n    \"reasons\": [\n      \"string\",\n      \"string\"\n    ],\n    \"message\": \"string\",\n    \"alternatePackage\": {\n      \"id\": \"string\",\n      \"range\": \"string\"\n    }\n  },\n  \"iconUrl\": \"http://kfVJVntZVamHSgqhHFrv.ziPvBUOlkBIt1OIIkT+I.c2\",\n  \"isPrerelease\": false,\n  \"language\": \"string\",\n  \"licenseUrl\": \"http://miNJSFKzY.auhLqPyjA4sVj6V9u2AAj5-Mo3.j4FoJlZD\",\n  \"listed\": false,\n  \"minClientVersion\": \"string\",\n  \"packageContent\": \"https://GwRmeuK.rpnbx,cOKPZzeFq-e,P0h,wCYEbYtWGRFQZPNSc6ierstrfuqSYQ4ayrxn2FMw7Z6XZtzKZu6pV\",\n  \"packageTypes\": [\n    {\n      \"name\": \"string\",\n      \"version\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"version\": \"string\"\n    }\n  ],\n  \"projectUrl\": \"http://xAhCvlAldTAksoIhJlFRrTjRT.xafwa-6JayWqKr-yoNmNAVr5\",\n  \"releaseNotes\": \"string\",\n  \"requireLicenseAgreement\": true,\n  \"summary\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"title\": \"string\",\n  \"verbatimVersion\": \"string\",\n  \"vulnerabilities\": [\n    {\n      \"advisoryUrl\": \"https://tyZwTkdlaNSgBipYgChED.llwJuhXa5fJahY3qe\",\n      \"severity\": \"1\"\n    },\n    {\n      \"advisoryUrl\": \"https://JPuRieJBFUN.xkhSRQGhYTiFfG6Aufa3qtc7qDWz9VsLROkRZMjTB\",\n      \"severity\": \"2\"\n    }\n  ]\n}",
+              "body": "{\n  \"@type\": \"string\",\n  \"catalog:commitId\": \"string\",\n  \"catalog:commitTimeStamp\": \"1978-05-03T03:53:34.302Z\",\n  \"id\": \"string\",\n  \"published\": \"1947-08-07T15:34:28.419Z\",\n  \"version\": \"string\",\n  \"packageHash\": \"string\",\n  \"packageHashAlgorithm\": \"string\",\n  \"packageSize\": 5622,\n  \"created\": \"2007-04-17T11:17:05.368Z\",\n  \"authors\": \"string\",\n  \"description\": \"string\",\n  \"dependencyGroups\": [\n    {\n      \"targetFramework\": \"string\",\n      \"dependencies\": [\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        }\n      ]\n    },\n    {\n      \"targetFramework\": \"string\",\n      \"dependencies\": [\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"range\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"deprecation\": {\n    \"reasons\": [\n      \"string\",\n      \"string\"\n    ],\n    \"message\": \"string\",\n    \"alternatePackage\": {\n      \"id\": \"string\",\n      \"range\": \"string\"\n    }\n  },\n  \"iconUrl\": \"http://hxQaTGHYoNeYVSGkqUgZnQTGG.rrtmaVsXSZPEyOS3whQig1fAGcycf2-vJxDDDRK+Pm5b,yLmkOAwbRWE\",\n  \"isPrerelease\": true,\n  \"language\": \"string\",\n  \"licenseUrl\": \"https://vN.znleOX94fsT8r0O.Ijy.JQvU.bcwQyU8Egw+rURS\",\n  \"listed\": false,\n  \"minClientVersion\": \"string\",\n  \"packageContent\": \"http://AHYaqeRia.kmtHI0ncG4mZG+bU\",\n  \"packageTypes\": [\n    {\n      \"name\": \"string\",\n      \"version\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"version\": \"string\"\n    }\n  ],\n  \"projectUrl\": \"https://xuuczxwpyLUweiWiMX.mozlzOsQH6M+UIDk9xMXLXNd8e,8NGvebKc4TPYBks\",\n  \"releaseNotes\": \"string\",\n  \"requireLicenseAgreement\": true,\n  \"summary\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"title\": \"string\",\n  \"verbatimVersion\": \"string\",\n  \"vulnerabilities\": [\n    {\n      \"advisoryUrl\": \"https://eOJQzAYHbMLlq.crqglrctlAxkUUlzNkqxnrfEBy+j7a\",\n      \"severity\": \"2\"\n    },\n    {\n      \"advisoryUrl\": \"http://KllhWjRBtSWZ.guyhePTcoFgML77mbh.pB3teVBuuHEghlZcWnl-DDwo6\",\n      \"severity\": \"3\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -281,8 +281,8 @@
     }
   ],
   "info": {
-    "_postman_id": "eb79110f-a78d-4c21-a3d9-2b423243963b",
-    "name": "NuGet Catalog API",
+    "_postman_id": "dbafdfae-1bc3-4d52-a333-ddffd3189820",
+    "name": "NuGet Autocomplete Catalog API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.\n\nContact Support:\n Name: NuGet Support",

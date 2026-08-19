@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "60584d54-a52f-4285-ac68-973c3bb217d8",
+      "name": "Service Index",
+      "description": {
+        "content": "The service index is the entry point for the NuGet V3 API. It is a JSON document that lists all available resources and their capabilities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e5a609b7-b2de-4c58-b0e9-a64ec84a641a",
+          "name": "Get the service index",
+          "request": {
+            "name": "Get the service index",
+            "description": {
+              "content": "Retrieves the service index, which is a JSON document listing all available resources on the NuGet package source. Clients use this document to discover the URLs for search, registration, package content, catalog, and other API resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "index.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd91eb3c-7735-4a81-a18f-48b0173d55af",
+              "name": "The service index document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "index.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"3.0.0\",\n  \"resources\": [\n    {\n      \"@id\": \"http://vNtVWDeegvoCvOVoUTLiXGOooDLj.bkjYJQ4HDJQvYUC8z5I5DUuKXVtC\",\n      \"@type\": \"string\",\n      \"comment\": \"string\"\n    },\n    {\n      \"@id\": \"http://fWiGmrDOlSlFUCVZGAAXZYKhwhEMfd.mrM7Ug1m\",\n      \"@type\": \"string\",\n      \"comment\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nuget.org/v3/catalog0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6d1dd2fc-c2c5-4323-865e-eed4a093c403",
+    "name": "NuGet Catalog Autocomplete Service Index API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.\n\nContact Support:\n Name: NuGet Support",
+      "type": "text/plain"
+    }
+  }
+}

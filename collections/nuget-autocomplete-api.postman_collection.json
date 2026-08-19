@@ -1,25 +1,25 @@
 {
   "item": [
     {
-      "id": "a792ac00-e8d2-4c97-bb04-6f2efaaafba8",
-      "name": "Search",
+      "id": "75e2fc57-c2ea-41a8-af93-79ad76913c30",
+      "name": "Autocomplete",
       "description": {
-        "content": "Search for packages by keyword, filter by various criteria, and retrieve paginated results with full package metadata.",
+        "content": "Autocomplete package IDs and enumerate package versions for typeahead and discovery features.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "dbfbcd60-a683-46a6-a6aa-7efe320cbdb8",
-          "name": "Search for packages",
+          "id": "7c2c6d90-901b-43d4-8b2d-70e8dc7a1a8c",
+          "name": "Autocomplete package IDs",
           "request": {
-            "name": "Search for packages",
+            "name": "Autocomplete package IDs",
             "description": {
-              "content": "Queries for a page of packages matching a specified search query. Results are grouped by package ID and include metadata from the latest version. Unlisted packages never appear in search results. The base URL for this endpoint must be obtained from the service index using the SearchQueryService resource type.",
+              "content": "Searches for package IDs matching a substring. This endpoint supports typeahead features in user interfaces integrated with a NuGet package source. Packages with only unlisted versions do not appear in results. The base URL for this endpoint must be obtained from the service index using the SearchAutocompleteService resource type.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "query"
+                "autocomplete"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -75,12 +75,12 @@
           },
           "response": [
             {
-              "id": "7e08a830-107b-42aa-bdaa-2915eb8b5e3c",
-              "name": "Successful search results",
+              "id": "67d7c43a-6807-4040-9a16-0d4032cde52a",
+              "name": "Successful autocomplete results",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "query"
+                    "autocomplete"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -130,7 +130,109 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"totalHits\": 7126,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"version\": \"string\",\n      \"versions\": [\n        {\n          \"@id\": \"http://PNWAHlTXMtKrhFkUGxzAGVZ.uyggVOZ+OeTL6bTmDzIktbgwYOR\",\n          \"version\": \"string\",\n          \"downloads\": 9731\n        },\n        {\n          \"@id\": \"https://tmENLTfejlEdtrKKf.mhaoui2A9rZPDCtBiCBx7hNLhwnkmKVX6wareZwmBTpokr69\",\n          \"version\": \"string\",\n          \"downloads\": 1531\n        }\n      ],\n      \"packageTypes\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"description\": \"string\",\n      \"authors\": \"string\",\n      \"iconUrl\": \"https://zZLGsqvmSDSNEUZmmPNSSNvmgZP.thkabwqGH5dugHH,j-lA\",\n      \"licenseUrl\": \"https://kvrsIBgyTJHJ.acazlABsYIrkSeS5ZB5UsL5qetLDp,N0,swJZHSpj0IX\",\n      \"owners\": \"string\",\n      \"projectUrl\": \"http://CcZAdX.gjoNpxz6HvP\",\n      \"registration\": \"https://tJcsDRwMGnasiWuskcIyWOqVb.gjtgD+7NvEqWymV3jM+g.eaUUkx5gOCk\",\n      \"summary\": \"string\",\n      \"tags\": \"string\",\n      \"title\": \"string\",\n      \"totalDownloads\": 985,\n      \"verified\": false\n    },\n    {\n      \"id\": \"string\",\n      \"version\": \"string\",\n      \"versions\": [\n        {\n          \"@id\": \"https://nSeFslMnQNkGcQRWJJpBhykylF.bvfarD1ADlW0Xjjlta9BNcSrRwkq1h7oGKqmW3w-t.lbp5yvwtMQCxPgDheifhE3YSLL6-TW7WU-7M\",\n          \"version\": \"string\",\n          \"downloads\": 5768\n        },\n        {\n          \"@id\": \"http://p.fprRj2Y0qSQmIlZ0jESQN9R7OTjf8r49SuCWfGn7FbHc\",\n          \"version\": \"string\",\n          \"downloads\": 3003\n        }\n      ],\n      \"packageTypes\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"description\": \"string\",\n      \"authors\": \"string\",\n      \"iconUrl\": \"https://JJwHYJlatKRHBkiFxtFjuX.rqpeFc9O5RXibvEFbOih8XqnR\",\n      \"licenseUrl\": \"https://ZAGmCuFORWxlvoiSdAzsVJM.pjDX5XBpkg7ztf35dsGbwjSS4pbl-L3qRCOll\",\n      \"owners\": \"string\",\n      \"projectUrl\": \"http://MSZpEmHruMCUxrAdZfQDVSrhSoQf.ucj1,wIv8cDV2B\",\n      \"registration\": \"http://fQhmVYuTqBCaoyFxFU.jgLTf,6rkgVo-GwPrvnPG8cDUsaDEbcR8FK\",\n      \"summary\": \"string\",\n      \"tags\": \"string\",\n      \"title\": \"string\",\n      \"totalDownloads\": 2026,\n      \"verified\": true\n    }\n  ]\n}",
+              "body": "{\n  \"totalHits\": 3167,\n  \"data\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82404b52-6499-4797-8129-27a01dbe9a3c",
+          "name": "Enumerate package versions",
+          "request": {
+            "name": "Enumerate package versions",
+            "description": {
+              "content": "Enumerates all listed versions for a given package ID. Unlisted versions do not appear in the results. This endpoint uses the same SearchAutocompleteService base URL with the id parameter instead of the q parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "autocomplete-versions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) The package ID to fetch versions for."
+                },
+                {
+                  "disabled": false,
+                  "key": "prerelease",
+                  "value": "false",
+                  "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+                },
+                {
+                  "disabled": false,
+                  "key": "semVerLevel",
+                  "value": "<string>",
+                  "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02b00bd1-44cd-4b78-aaf7-6853a507eefe",
+              "name": "Successful version enumeration results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autocomplete-versions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "prerelease",
+                      "value": "false"
+                    },
+                    {
+                      "key": "semVerLevel",
+                      "value": "2.0.0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    \"string\",\n    \"string\"\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -153,8 +255,8 @@
     }
   ],
   "info": {
-    "_postman_id": "e387ace0-5d3f-4e5f-89b3-33e693b9eac3",
-    "name": "NuGet Catalog Autocomplete Search API",
+    "_postman_id": "84a0435d-3e49-4f76-820d-73d6d113868d",
+    "name": "NuGet Catalog Autocomplete API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.\n\nContact Support:\n Name: NuGet Support",

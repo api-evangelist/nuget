@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NuGet Catalog Autocomplete Package Publish API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Package Publish",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Push a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.nuget.org/v3/catalog0/package",
+            "headers": [
+              {
+                "name": "X-NuGet-Protocol-Version",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "package",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Pushes a new package to the NuGet feed. The request body must be a multipart form data payload where the first item is the raw bytes of the .nupkg file. If a package with the same ID and version already exists, the push will be rejected with a 409 status code."
+        },
+        {
+          "info": {
+            "name": "Relist a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nuget.org/v3/catalog0/package/:id/:version",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the package."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version of the package."
+              }
+            ]
+          },
+          "docs": "Relists a previously unlisted package, making it visible again in search results. If the package is already listed, the request still succeeds."
+        },
+        {
+          "info": {
+            "name": "Delete or unlist a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.nuget.org/v3/catalog0/package/:id/:version",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the package."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "The version of the package."
+              }
+            ]
+          },
+          "docs": "Deletes or unlists a package from the NuGet feed. On nuget.org, this operation unlists the package rather than performing a hard delete. Unlisted packages no longer appear in search results or the web interface but remain available for existing consumers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "9ba374c1-357b-4f17-ac50-b6a023fccef1",
+      "id": "efa38a81-14f7-426a-bb19-86abadc45762",
       "name": "Package Content",
       "description": {
         "content": "Endpoints for enumerating package versions and downloading package content files (.nupkg) and manifests (.nuspec).",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "2733a8bc-b7a5-445c-a9a7-ce63ac54a4d9",
+          "id": "1b1e8778-e7d5-454f-aac8-0e7103bc9b7a",
           "name": "Enumerate package versions",
           "request": {
             "name": "Enumerate package versions",
@@ -47,7 +47,7 @@
           },
           "response": [
             {
-              "id": "63aef84d-1958-485f-9de0-97452b183112",
+              "id": "d3e525c0-24d9-4f1c-ad2c-72d70c8bb234",
               "name": "The list of available versions",
               "originalRequest": {
                 "url": {
@@ -91,7 +91,7 @@
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "cf48490b-8e9a-44ac-a53e-2fe42c4f532a",
+              "id": "12dbb933-f4f7-4af8-a80d-4647cc27d552",
               "name": "No package with the given ID exists",
               "originalRequest": {
                 "url": {
@@ -135,7 +135,7 @@
           }
         },
         {
-          "id": "ae560466-4a7a-4e01-9ade-43c401b8577d",
+          "id": "8da2fb75-18e3-489b-9288-bcec2a9f3663",
           "name": "Download package content (.nupkg)",
           "request": {
             "name": "Download package content (.nupkg)",
@@ -166,7 +166,7 @@
           },
           "response": [
             {
-              "id": "cde60052-4567-4f94-adb9-832ef7433e6d",
+              "id": "42ac7be3-1d8c-421a-8d8f-e82d81423c2f",
               "name": "The package content binary stream",
               "originalRequest": {
                 "url": {
@@ -203,7 +203,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3f4e884e-13e5-4573-8b46-0f397b7b1a8f",
+              "id": "af755a60-cf0c-40e8-a2f8-e7a20c7283d1",
               "name": "The package does not exist on the package source",
               "originalRequest": {
                 "url": {
@@ -240,7 +240,7 @@
           }
         },
         {
-          "id": "0b61d78a-c107-4cf8-90a1-3146fc6294c9",
+          "id": "c1600d38-284d-4627-a92f-d6189bb9315e",
           "name": "Download package manifest (.nuspec)",
           "request": {
             "name": "Download package manifest (.nuspec)",
@@ -279,7 +279,7 @@
           },
           "response": [
             {
-              "id": "d0efcda0-6d40-41cb-ad1e-8bc715277c3b",
+              "id": "1b3a5112-7e12-4fc2-92fb-e8c28201be13",
               "name": "The package manifest XML document",
               "originalRequest": {
                 "url": {
@@ -324,7 +324,7 @@
               "_postman_previewlanguage": "xml"
             },
             {
-              "id": "3971f9e8-b443-4088-b434-c9da7510f783",
+              "id": "807dd329-4a25-4005-a74e-a7ff2467b884",
               "name": "The package does not exist on the package source",
               "originalRequest": {
                 "url": {
@@ -376,7 +376,7 @@
   "variable": [
     {
       "type": "string",
-      "value": "https://api.nuget.org/v3-flatcontainer",
+      "value": "https://api.nuget.org/v3/catalog0",
       "key": "baseUrl"
     },
     {
@@ -401,11 +401,11 @@
     }
   ],
   "info": {
-    "_postman_id": "26842963-d3b7-466c-b84f-546b1eb2b4da",
-    "name": "NuGet Package Content API",
+    "_postman_id": "37a77758-acca-40aa-b425-6adb026bb11c",
+    "name": "NuGet Catalog Autocomplete Package Content API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The NuGet Package Content API, accessed through the PackageBaseAddress resource (also known as the flat container), allows clients to download package content files (.nupkg), package manifests (.nuspec), and enumerate all available versions for a given package ID. The flat container structure organizes packages by lowercase package ID and version, providing direct access to binary package files.\n\nContact Support:\n Name: NuGet Support",
+      "content": "The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.\n\nContact Support:\n Name: NuGet Support",
       "type": "text/plain"
     }
   }

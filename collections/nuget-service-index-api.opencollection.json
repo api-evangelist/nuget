@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NuGet Catalog Autocomplete Service Index API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Service Index",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the service index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/catalog0/index.json"
+          },
+          "docs": "Retrieves the service index, which is a JSON document listing all available resources on the NuGet package source. Clients use this document to discover the URLs for search, registration, package content, catalog, and other API resources."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,19 +1,19 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "NuGet Catalog Autocomplete Package Content API",
+    "name": "NuGet Catalog Autocomplete Registration API",
     "version": "3.0.0"
   },
   "items": [
     {
       "info": {
-        "name": "Package Content",
+        "name": "Registration",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Enumerate package versions",
+            "name": "Get registration index for a package",
             "type": "http"
           },
           "http": {
@@ -28,16 +28,16 @@
               }
             ]
           },
-          "docs": "Lists all available versions (both listed and unlisted) of a package. The versions returned can be used to construct URLs for downloading specific package content or manifests. Returns a 404 if the package source has no versions of the provided package ID."
+          "docs": "Retrieves the registration index for a given package ID. The index contains a list of registration pages, each covering a range of package versions. Pages may inline their leaf data or require separate requests. On nuget.org, packages with 128 or more versions are broken into pages of 64 versions each."
         },
         {
           "info": {
-            "name": "Download package content (.nupkg)",
+            "name": "Get a registration page",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.nuget.org/v3/catalog0/:lowerId/:lowerVersion/:lowerId.:lowerVersion.nupkg",
+            "url": "https://api.nuget.org/v3/catalog0/:lowerId/page/:lower/:upper.json",
             "params": [
               {
                 "name": "lowerId",
@@ -46,23 +46,29 @@
                 "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
               },
               {
-                "name": "lowerVersion",
+                "name": "lower",
                 "value": "",
                 "type": "path",
-                "description": "The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded."
+                "description": "The lowest SemVer 2.0.0 version in the page (inclusive)."
+              },
+              {
+                "name": "upper",
+                "value": "",
+                "type": "path",
+                "description": "The highest SemVer 2.0.0 version in the page (inclusive)."
               }
             ]
           },
-          "docs": "Downloads the package content file (.nupkg) for a specific package ID and version. Both the package ID and version must be lowercased and the version must be normalized according to NuGet version normalization rules."
+          "docs": "Retrieves a registration page containing registration leaves for a range of package versions. The URL to a registration page is discovered from the registration index and should not be constructed by clients."
         },
         {
           "info": {
-            "name": "Download package manifest (.nuspec)",
+            "name": "Get a registration leaf",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.nuget.org/v3/catalog0/:lowerId/:lowerVersion/:lowerId.nuspec",
+            "url": "https://api.nuget.org/v3/catalog0/:lowerId/:version.json",
             "params": [
               {
                 "name": "lowerId",
@@ -71,14 +77,14 @@
                 "description": "The package ID, lowercased using .NET ToLowerInvariant() rules."
               },
               {
-                "name": "lowerVersion",
+                "name": "version",
                 "value": "",
                 "type": "path",
-                "description": "The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded."
+                "description": "The normalized, lowercased package version."
               }
             ]
           },
-          "docs": "Downloads the package manifest file (.nuspec) for a specific package ID and version. The .nuspec is an XML document containing the package metadata as originally authored. Both the package ID and version must be lowercased and the version normalized."
+          "docs": "Retrieves a registration leaf containing information about a specific package version. The URL to a registration leaf is discovered from a registration page and should not be constructed by clients."
         }
       ]
     }

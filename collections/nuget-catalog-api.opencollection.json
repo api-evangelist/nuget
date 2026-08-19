@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "NuGet Catalog API",
+    "name": "NuGet Autocomplete Catalog API",
     "version": "3.0.0"
   },
   "items": [

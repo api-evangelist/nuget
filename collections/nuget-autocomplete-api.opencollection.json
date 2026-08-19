@@ -1,24 +1,24 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "NuGet Catalog Autocomplete Search API",
+    "name": "NuGet Catalog Autocomplete API",
     "version": "3.0.0"
   },
   "items": [
     {
       "info": {
-        "name": "Search",
+        "name": "Autocomplete",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Search for packages",
+            "name": "Autocomplete package IDs",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.nuget.org/v3/catalog0/query",
+            "url": "https://api.nuget.org/v3/catalog0/autocomplete",
             "params": [
               {
                 "name": "q",
@@ -58,7 +58,38 @@
               }
             ]
           },
-          "docs": "Queries for a page of packages matching a specified search query. Results are grouped by package ID and include metadata from the latest version. Unlisted packages never appear in search results. The base URL for this endpoint must be obtained from the service index using the SearchQueryService resource type."
+          "docs": "Searches for package IDs matching a substring. This endpoint supports typeahead features in user interfaces integrated with a NuGet package source. Packages with only unlisted versions do not appear in results. The base URL for this endpoint must be obtained from the service index using the SearchAutocompleteService resource type."
+        },
+        {
+          "info": {
+            "name": "Enumerate package versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nuget.org/v3/catalog0/autocomplete-versions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The package ID to fetch versions for."
+              },
+              {
+                "name": "prerelease",
+                "value": "",
+                "type": "query",
+                "description": "When true, pre-release packages are included in results. Defaults to false, which excludes pre-release packages."
+              },
+              {
+                "name": "semVerLevel",
+                "value": "",
+                "type": "query",
+                "description": "A SemVer version string used to opt-in to SemVer 2.0.0 packages. If excluded, only SemVer 1.0.0 compatible versions are returned. Use 2.0.0 to include SemVer 2.0.0 packages."
+              }
+            ]
+          },
+          "docs": "Enumerates all listed versions for a given package ID. Unlisted versions do not appear in the results. This endpoint uses the same SearchAutocompleteService base URL with the id parameter instead of the q parameter."
         }
       ]
     }
