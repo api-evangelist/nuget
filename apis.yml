@@ -152,6 +152,8 @@ apis:
     resources and their capabilities.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
+  - ServiceIndex
+  tags_raw:
   - Service Index
   properties:
   - type: OpenAPI
