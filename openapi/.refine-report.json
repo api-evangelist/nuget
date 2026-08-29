@@ -1,26 +1,29 @@
 {
   "provider": "nuget",
   "sources": [
-    "nuget-autocomplete-api-openapi.yml",
-    "nuget-catalog-api-openapi.yml",
-    "nuget-package-content-api-openapi.yml",
-    "nuget-package-publish-api-openapi.yml",
-    "nuget-registration-api-openapi.yml",
-    "nuget-search-api-openapi.yml",
-    "nuget-service-index-api-openapi.yml"
+    "_original/nuget-package-metadata-api-openapi.yml",
+    "_original/nuget-server-api-openapi.yml"
   ],
   "outputs": [
-    "nuget-autocomplete-api-openapi.yml",
-    "nuget-catalog-api-openapi.yml",
-    "nuget-package-content-api-openapi.yml",
-    "nuget-package-publish-api-openapi.yml",
     "nuget-registration-api-openapi.yml",
-    "nuget-search-api-openapi.yml",
+    "nuget-package-publish-api-openapi.yml",
     "nuget-service-index-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "nuget-package-metadata-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nuget-server-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "nuget-autocomplete-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nuget-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nuget-package-content-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nuget-package-publish-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nuget-registration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nuget-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nuget-service-index-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

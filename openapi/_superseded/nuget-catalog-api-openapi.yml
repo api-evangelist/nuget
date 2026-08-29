@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: NuGet Autocomplete Catalog API
   description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
@@ -87,25 +87,6 @@ paths:
                 - $ref: '#/components/schemas/PackageDeleteLeaf'
 components:
   schemas:
-    Vulnerability:
-      type: object
-      description: A security vulnerability.
-      required:
-      - advisoryUrl
-      - severity
-      properties:
-        advisoryUrl:
-          type: string
-          format: uri
-          description: Location of the security advisory.
-        severity:
-          type: string
-          description: 'Severity: 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.'
-          enum:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
     Deprecation:
       type: object
       description: Deprecation information for a package.
@@ -125,6 +106,106 @@ components:
               type: string
             range:
               type: string
+    CatalogItemReference:
+      type: object
+      description: A reference to a catalog item within a catalog page.
+      required:
+      - '@id'
+      - '@type'
+      - commitId
+      - commitTimeStamp
+      - nuget:id
+      - nuget:version
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to fetch the catalog item.
+        '@type':
+          type: string
+          description: The type of the catalog item. Either nuget:PackageDetails or nuget:PackageDelete.
+          enum:
+          - nuget:PackageDetails
+          - nuget:PackageDelete
+        commitId:
+          type: string
+          description: The commit ID associated with this catalog item.
+        commitTimeStamp:
+          type: string
+          format: date-time
+          description: The commit timestamp of this catalog item.
+        nuget:id:
+          type: string
+          description: The package ID that this item is related to.
+        nuget:version:
+          type: string
+          description: The package version that this item is related to.
+    CatalogPackageType:
+      type: object
+      description: A package type specified by the package author.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The name of the package type.
+        version:
+          type: string
+          description: The version of the package type, if specified.
+    CatalogPageReference:
+      type: object
+      description: A reference to a catalog page within the catalog index.
+      required:
+      - '@id'
+      - commitId
+      - commitTimeStamp
+      - count
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to fetch the catalog page.
+        commitId:
+          type: string
+          description: A unique ID associated with the most recent commit in this page.
+        commitTimeStamp:
+          type: string
+          format: date-time
+          description: A timestamp of the most recent commit in this page.
+        count:
+          type: integer
+          description: The number of items in the catalog page.
+    Dependency:
+      type: object
+      description: A package dependency.
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The ID of the package dependency.
+        range:
+          type: string
+          description: The allowed version range.
+    Vulnerability:
+      type: object
+      description: A security vulnerability.
+      required:
+      - advisoryUrl
+      - severity
+      properties:
+        advisoryUrl:
+          type: string
+          format: uri
+          description: Location of the security advisory.
+        severity:
+          type: string
+          description: 'Severity: 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.'
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
     PackageDeleteLeaf:
       type: object
       description: A catalog leaf representing a package deletion event.
@@ -163,6 +244,17 @@ components:
         version:
           type: string
           description: The original version string from the .nuspec.
+    DependencyGroup:
+      type: object
+      description: A group of package dependencies for a specific target framework.
+      properties:
+        targetFramework:
+          type: string
+          description: The target framework these dependencies apply to.
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dependency'
     PackageDetailsLeaf:
       type: object
       description: A catalog leaf representing a snapshot of package metadata. Produced when a package is pushed, relisted, unlisted, deprecated, undeprecated, reflowed, or has its vulnerability status updated.
@@ -285,18 +377,30 @@ components:
           description: Security vulnerabilities associated with this version.
           items:
             $ref: '#/components/schemas/Vulnerability'
-    CatalogPackageType:
+    CatalogIndex:
       type: object
-      description: A package type specified by the package author.
+      description: The catalog index, the entry point for the catalog resource.
       required:
-      - name
+      - commitId
+      - commitTimeStamp
+      - count
+      - items
       properties:
-        name:
+        commitId:
           type: string
-          description: The name of the package type.
-        version:
+          description: A unique ID associated with the most recent commit.
+        commitTimeStamp:
           type: string
-          description: The version of the package type, if specified.
+          format: date-time
+          description: A timestamp of the most recent commit.
+        count:
+          type: integer
+          description: The number of pages in the index.
+        items:
+          type: array
+          description: The array of catalog page references.
+          items:
+            $ref: '#/components/schemas/CatalogPageReference'
     CatalogPage:
       type: object
       description: A catalog page containing a collection of catalog items.
@@ -326,110 +430,6 @@ components:
           type: string
           format: uri
           description: A URL to the catalog index.
-    DependencyGroup:
-      type: object
-      description: A group of package dependencies for a specific target framework.
-      properties:
-        targetFramework:
-          type: string
-          description: The target framework these dependencies apply to.
-        dependencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dependency'
-    CatalogItemReference:
-      type: object
-      description: A reference to a catalog item within a catalog page.
-      required:
-      - '@id'
-      - '@type'
-      - commitId
-      - commitTimeStamp
-      - nuget:id
-      - nuget:version
-      properties:
-        '@id':
-          type: string
-          format: uri
-          description: The URL to fetch the catalog item.
-        '@type':
-          type: string
-          description: The type of the catalog item. Either nuget:PackageDetails or nuget:PackageDelete.
-          enum:
-          - nuget:PackageDetails
-          - nuget:PackageDelete
-        commitId:
-          type: string
-          description: The commit ID associated with this catalog item.
-        commitTimeStamp:
-          type: string
-          format: date-time
-          description: The commit timestamp of this catalog item.
-        nuget:id:
-          type: string
-          description: The package ID that this item is related to.
-        nuget:version:
-          type: string
-          description: The package version that this item is related to.
-    CatalogIndex:
-      type: object
-      description: The catalog index, the entry point for the catalog resource.
-      required:
-      - commitId
-      - commitTimeStamp
-      - count
-      - items
-      properties:
-        commitId:
-          type: string
-          description: A unique ID associated with the most recent commit.
-        commitTimeStamp:
-          type: string
-          format: date-time
-          description: A timestamp of the most recent commit.
-        count:
-          type: integer
-          description: The number of pages in the index.
-        items:
-          type: array
-          description: The array of catalog page references.
-          items:
-            $ref: '#/components/schemas/CatalogPageReference'
-    CatalogPageReference:
-      type: object
-      description: A reference to a catalog page within the catalog index.
-      required:
-      - '@id'
-      - commitId
-      - commitTimeStamp
-      - count
-      properties:
-        '@id':
-          type: string
-          format: uri
-          description: The URL to fetch the catalog page.
-        commitId:
-          type: string
-          description: A unique ID associated with the most recent commit in this page.
-        commitTimeStamp:
-          type: string
-          format: date-time
-          description: A timestamp of the most recent commit in this page.
-        count:
-          type: integer
-          description: The number of items in the catalog page.
-    Dependency:
-      type: object
-      description: A package dependency.
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: The ID of the package dependency.
-        range:
-          type: string
-          description: The allowed version range.
 externalDocs:
   description: NuGet Catalog API Documentation
   url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource

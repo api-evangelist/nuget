@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: NuGet Catalog Autocomplete Package Content API
   description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
@@ -86,18 +86,18 @@ components:
           items:
             type: string
   parameters:
-    LowerVersion:
-      name: lowerVersion
-      in: path
-      required: true
-      description: The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded.
-      schema:
-        type: string
     LowerId:
       name: lowerId
       in: path
       required: true
       description: The package ID, lowercased using .NET ToLowerInvariant() rules.
+      schema:
+        type: string
+    LowerVersion:
+      name: lowerVersion
+      in: path
+      required: true
+      description: The package version, normalized and lowercased. SemVer 2.0.0 build metadata must be excluded.
       schema:
         type: string
 externalDocs:

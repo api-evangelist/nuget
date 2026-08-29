@@ -1,15 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: NuGet Catalog Autocomplete Package Publish API
-  description: The NuGet Catalog API is an append-only resource that records the full history of all package events on nuget.org, including packages being added, modified, listed, unlisted, deleted, deprecated, and having vulnerability status updated. It provides a chronologically ordered log of every change to the package source, enabling consumers to build and maintain their own local copy of the entire set of packages available on nuget.org. The catalog is indexed by time and uses a hierarchical structure of index, pages, and leaves. Not all package sources implement the catalog resource.
-  version: 3.0.0
+  title: NuGet Server Package Publish API
+  description: The NuGet Server API is a set of HTTP endpoints used to download packages, fetch metadata, publish new packages, and perform other operations against a NuGet package source. The V3 API uses JSON as its underlying media type and is accessed through a service index located at https://api.nuget.org/v3/index.json, which enumerates all available resources and capabilities. This specification covers the service index and package publish endpoints.
+  version: '3.0'
   contact:
     name: NuGet Support
     url: https://github.com/NuGet/Home/issues
   termsOfService: https://www.nuget.org/policies/Terms
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
 servers:
-- url: https://api.nuget.org/v3/catalog0
-  description: NuGet.org Catalog
+- url: https://api.nuget.org/v3
+  description: NuGet.org V3 API
+- url: https://www.nuget.org/api/v2
+  description: NuGet.org Package Publish Endpoint
 security: []
 tags:
 - name: Package Publish
@@ -95,18 +100,18 @@ paths:
           description: No package with the provided ID and version exists
 components:
   parameters:
-    PackageVersion:
-      name: version
-      in: path
-      required: true
-      description: The version of the package.
-      schema:
-        type: string
     PackageId:
       name: id
       in: path
       required: true
       description: The ID of the package.
+      schema:
+        type: string
+    PackageVersion:
+      name: version
+      in: path
+      required: true
+      description: The version of the package.
       schema:
         type: string
     XNuGetProtocolVersion:
@@ -116,6 +121,12 @@ components:
       description: Required in certain cases on nuget.org to indicate protocol version.
       schema:
         type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: X-NuGet-ApiKey
+      in: header
+      description: An API key obtained from the NuGet package source. Required for push, delete, and relist operations.
 externalDocs:
-  description: NuGet Catalog API Documentation
-  url: https://learn.microsoft.com/en-us/nuget/api/catalog-resource
+  description: NuGet Server API Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/overview
