@@ -91,7 +91,7 @@ apis:
     resources and their capabilities.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
-  - ServiceIndex
+  - Service Index
   tags_raw:
   - Service Index
   properties:
