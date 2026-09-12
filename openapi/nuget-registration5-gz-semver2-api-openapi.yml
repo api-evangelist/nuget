@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: NuGet Server API (V3) Autocomplete Registration5 Gz Semver2 API
+  description: Minimal OpenAPI definition for the NuGet V3 HTTP protocol covering the service index, package content (PackageBaseAddress), package metadata (RegistrationsBaseUrl), search, autocomplete, and package publish.
+  version: '3'
+  x-generated-from: https://learn.microsoft.com/en-us/nuget/api/overview
+  x-generated-by: claude-crawl-2026-05-08
+servers:
+- url: https://api.nuget.org/v3
+  description: nuget.org V3 service host
+tags:
+- name: Registration5 Gz Semver2
+paths:
+  /registration5-gz-semver2/{id}/index.json:
+    parameters:
+    - $ref: '#/components/parameters/PackageId'
+    get:
+      summary: Get package registration index (RegistrationsBaseUrl)
+      operationId: getRegistrationIndex
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+      tags:
+      - Registration5 Gz Semver2
+  /registration5-gz-semver2/{id}/{version}.json:
+    parameters:
+    - $ref: '#/components/parameters/PackageId'
+    - in: path
+      name: version
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get package registration leaf
+      operationId: getRegistrationLeaf
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericObject'
+      tags:
+      - Registration5 Gz Semver2
+components:
+  parameters:
+    PackageId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+  schemas:
+    GenericObject:
+      type: object
+      additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-NuGet-ApiKey
