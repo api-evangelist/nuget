@@ -1,10 +1,7 @@
 aid: nuget
 name: NuGet
-description: >-
-  NuGet is the package manager for .NET, providing a centralized repository for developers to discover, share, and
-  consume reusable code libraries. The NuGet developer platform exposes a set of HTTP APIs that enable programmatic
-  access to package search, metadata retrieval, content download, catalog browsing, and package publishing against the
-  nuget.org feed.
+x-parent: github
+description: NuGet is the package manager for .NET, providing a centralized repository for developers to discover, share, and consume reusable code libraries. The NuGet developer platform exposes a set of HTTP APIs that enable programmatic access to package search, metadata retrieval, content download, catalog browsing, and package publishing against the nuget.org feed.
 kind: contract
 deliveryModel:
   model: open-core
@@ -36,22 +33,20 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/nuget.png
 tags:
-  - Package Management
-  - .NET
-  - Packages
-  - Dependencies
-  - Software Distribution
-  - Registry
-url: https://raw.githubusercontent.com/api-evangelist/nuget/refs/heads/main/apis.yml
+- Package Management
+- .NET
+- Packages
+- Dependencies
+- Software Distribution
+- Registry
+url: https://www.nuget.org/
 created: '2025-03-05'
 modified: '2026-05-19'
 specificationVersion: '0.23'
 apis:
 - aid: nuget:nuget-package-publish-api
   name: NuGet Package Publish API
-  description: >-
-    Endpoints for pushing new packages, deleting or unlisting packages, and relisting previously unlisted
-    packages on a NuGet feed.
+  description: Endpoints for pushing new packages, deleting or unlisting packages, and relisting previously unlisted packages on a NuGet feed.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
   - Package Publish
@@ -68,9 +63,7 @@ apis:
     url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
 - aid: nuget:nuget-registration-api
   name: NuGet Registration API
-  description: >-
-    Package registration endpoints for fetching metadata about packages, organized into an index, pages,
-    and leaves hierarchy.
+  description: Package registration endpoints for fetching metadata about packages, organized into an index, pages, and leaves hierarchy.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
   - Registration
@@ -87,9 +80,7 @@ apis:
     url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
 - aid: nuget:nuget-service-index-api
   name: NuGet Service Index API
-  description: >-
-    The service index is the entry point for the NuGet V3 API. It is a JSON document that lists all available
-    resources and their capabilities.
+  description: The service index is the entry point for the NuGet V3 API. It is a JSON document that lists all available resources and their capabilities.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
   - ServiceIndex
@@ -106,39 +97,131 @@ apis:
     url: https://github.com/NuGet/NuGetGallery
   - type: Documentation
     url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
-common:
-  - type: CodeOfConduct
-    url: https://github.com/NuGet/NuGetGallery/blob/main/CODE_OF_CONDUCT.md
-  - type: ContributionGuide
-    url: https://github.com/NuGet/NuGetGallery/blob/main/CONTRIBUTING.md
-  - type: License
-    name: Apache-2.0
-    url: https://github.com/NuGet/NuGetGallery/blob/main/LICENSE
-  - type: AgenticAccess
-    url: agentic-access/nuget-agentic-access.yml
-  - type: VulnerabilityDisclosure
-    url: security/nuget-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/nuget-domain-security.yml
-  - type: Authentication
-    url: authentication/nuget-authentication.yml
-  - type: Portal
-    url: https://learn.microsoft.com/en-us/nuget/
+- aid: microsoft-nuget:microsoft-nuget-autocomplete-api
+  name: Microsoft NuGet Autocomplete API
+  description: The Autocomplete API from Microsoft NuGet — 1 operation(s) for autocomplete.
+  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
+  baseURL: https://api.nuget.org/v3/
+  tags:
+  - Autocomplete
+  properties:
+  - type: OpenAPI
+    url: openapi/nuget-autocomplete-api-openapi.yml
   - type: Documentation
     url: https://learn.microsoft.com/en-us/nuget/api/overview
-  - type: Website
-    url: https://www.nuget.org/
-  - type: PrivacyPolicy
-    url: https://privacy.microsoft.com/en-us/privacystatement
-  - type: TermsOfService
-    url: https://www.nuget.org/policies/Terms
-  - type: Blog
-    url: https://devblogs.microsoft.com/nuget/
-  - type: Login
-    url: https://www.nuget.org/users/account/LogOn
-  - name: MCP Server
-    url: https://devblogs.microsoft.com/dotnet/nuget-mcp-server-preview/
-    type: MCPServer
+  - type: Reference
+    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+- aid: microsoft-nuget:microsoft-nuget-flatcontainer-api
+  name: Microsoft NuGet Flatcontainer API
+  description: The Flatcontainer API from Microsoft NuGet — 3 operation(s) for flatcontainer.
+  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
+  baseURL: https://api.nuget.org/v3/
+  tags:
+  - Flatcontainer
+  properties:
+  - type: OpenAPI
+    url: openapi/nuget-flatcontainer-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/nuget/api/overview
+  - type: Reference
+    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+- aid: microsoft-nuget:microsoft-nuget-index-json-api
+  name: Microsoft NuGet Index.json API
+  description: The Index.json API from Microsoft NuGet — 1 operation(s) for index.json.
+  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
+  baseURL: https://api.nuget.org/v3/
+  tags:
+  - Index.json
+  properties:
+  - type: OpenAPI
+    url: openapi/nuget-index-json-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/nuget/api/overview
+  - type: Reference
+    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+- aid: microsoft-nuget:microsoft-nuget-package-api
+  name: Microsoft NuGet Package API
+  description: The Package API from Microsoft NuGet — 2 operation(s) for package.
+  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
+  baseURL: https://api.nuget.org/v3/
+  tags:
+  - Package
+  properties:
+  - type: OpenAPI
+    url: openapi/nuget-package-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/nuget/api/overview
+  - type: Reference
+    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+- aid: microsoft-nuget:microsoft-nuget-query-api
+  name: Microsoft NuGet Query API
+  description: The Query API from Microsoft NuGet — 1 operation(s) for query.
+  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
+  baseURL: https://api.nuget.org/v3/
+  tags:
+  - Query
+  properties:
+  - type: OpenAPI
+    url: openapi/nuget-query-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/nuget/api/overview
+  - type: Reference
+    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+- aid: microsoft-nuget:microsoft-nuget-registration5-gz-semver2-api
+  name: Microsoft NuGet Registration5 Gz Semver2 API
+  description: The Registration5 Gz Semver2 API from Microsoft NuGet — 2 operation(s) for registration5 gz semver2.
+  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
+  baseURL: https://api.nuget.org/v3/
+  tags:
+  - Registration5 Gz Semver2
+  properties:
+  - type: OpenAPI
+    url: openapi/nuget-registration5-gz-semver2-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/nuget/api/overview
+  - type: Reference
+    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
+common:
+- type: GitHubOrganization
+  url: https://github.com/NuGet
+- type: GettingStarted
+  url: https://learn.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio
+- type: Support
+  url: https://support.microsoft.com/
+- type: StatusPage
+  url: https://status.nuget.org/
+- type: CodeOfConduct
+  url: https://github.com/NuGet/NuGetGallery/blob/main/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/NuGet/NuGetGallery/blob/main/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/NuGet/NuGetGallery/blob/main/LICENSE
+- type: AgenticAccess
+  url: agentic-access/nuget-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/nuget-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/nuget-domain-security.yml
+- type: Authentication
+  url: authentication/nuget-authentication.yml
+- type: Portal
+  url: https://learn.microsoft.com/en-us/nuget/
+- type: Documentation
+  url: https://learn.microsoft.com/en-us/nuget/api/overview
+- type: Website
+  url: https://www.nuget.org/
+- type: PrivacyPolicy
+  url: https://privacy.microsoft.com/en-us/privacystatement
+- type: TermsOfService
+  url: https://www.nuget.org/policies/Terms
+- type: Blog
+  url: https://devblogs.microsoft.com/nuget/
+- type: Login
+  url: https://www.nuget.org/users/account/LogOn
+- name: MCP Server
+  url: https://devblogs.microsoft.com/dotnet/nuget-mcp-server-preview/
+  type: MCPServer
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
