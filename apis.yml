@@ -47,7 +47,9 @@ specificationVersion: '0.23'
 apis:
 - aid: nuget:nuget-package-publish-api
   name: NuGet Package Publish API
-  description: Endpoints for pushing new packages, deleting or unlisting packages, and relisting previously unlisted packages on a NuGet feed.
+  description: >-
+    Endpoints for pushing new packages, deleting or unlisting packages, and relisting previously unlisted
+    packages on a NuGet feed.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
   - Package Publish
@@ -64,7 +66,9 @@ apis:
     url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
 - aid: nuget:nuget-registration-api
   name: NuGet Registration API
-  description: Package registration endpoints for fetching metadata about packages, organized into an index, pages, and leaves hierarchy.
+  description: >-
+    Package registration endpoints for fetching metadata about packages, organized into an index, pages,
+    and leaves hierarchy.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
   - Registration
@@ -81,7 +85,9 @@ apis:
     url: https://learn.microsoft.com/en-us/nuget/api/registration-base-url-resource
 - aid: nuget:nuget-service-index-api
   name: NuGet Service Index API
-  description: The service index is the entry point for the NuGet V3 API. It is a JSON document that lists all available resources and their capabilities.
+  description: >-
+    The service index is the entry point for the NuGet V3 API. It is a JSON document that lists all available
+    resources and their capabilities.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   tags:
   - ServiceIndex
@@ -126,34 +132,6 @@ apis:
     url: https://learn.microsoft.com/en-us/nuget/api/overview
   - type: Reference
     url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
-- aid: microsoft-nuget:microsoft-nuget-index-json-api
-  name: Microsoft NuGet Index.json API
-  description: The Index.json API from Microsoft NuGet — 1 operation(s) for index.json.
-  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
-  baseURL: https://api.nuget.org/v3/
-  tags:
-  - Index.json
-  properties:
-  - type: OpenAPI
-    url: openapi/nuget-index-json-api-openapi.yml
-  - type: Documentation
-    url: https://learn.microsoft.com/en-us/nuget/api/overview
-  - type: Reference
-    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
-- aid: microsoft-nuget:microsoft-nuget-package-api
-  name: Microsoft NuGet Package API
-  description: The Package API from Microsoft NuGet — 2 operation(s) for package.
-  humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
-  baseURL: https://api.nuget.org/v3/
-  tags:
-  - Package
-  properties:
-  - type: OpenAPI
-    url: openapi/nuget-package-api-openapi.yml
-  - type: Documentation
-    url: https://learn.microsoft.com/en-us/nuget/api/overview
-  - type: Reference
-    url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
 - aid: microsoft-nuget:microsoft-nuget-query-api
   name: Microsoft NuGet Query API
   description: The Query API from Microsoft NuGet — 1 operation(s) for query.
@@ -170,7 +148,8 @@ apis:
     url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
 - aid: microsoft-nuget:microsoft-nuget-registration5-gz-semver2-api
   name: Microsoft NuGet Registration5 Gz Semver2 API
-  description: The Registration5 Gz Semver2 API from Microsoft NuGet — 2 operation(s) for registration5 gz semver2.
+  description: >-
+    The Registration5 Gz Semver2 API from Microsoft NuGet — 2 operation(s) for registration5 gz semver2.
   humanURL: https://learn.microsoft.com/en-us/nuget/api/overview
   baseURL: https://api.nuget.org/v3/
   tags:
