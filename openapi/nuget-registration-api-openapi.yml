@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: NuGet Package Metadata Registration API
-  description: The NuGet Package Metadata API, accessed through the RegistrationsBaseUrl resource, provides detailed metadata about packages available on a NuGet package source. It returns registration information including all available versions of a package, their dependencies, download URLs, descriptions, authors, license information, deprecation status, and vulnerability data. The registration data is organized into a hierarchy of index, pages, and leaves, allowing efficient retrieval of metadata for packages that may have hundreds of published versions.
+  description: The NuGet Package Metadata API, accessed through the RegistrationsBaseUrl resource, provides detailed metadata about packages available on a NuGet package source.
   version: 3.6.0
   contact:
     name: NuGet Support
@@ -89,6 +89,21 @@ paths:
           description: The requested package version does not exist
 components:
   schemas:
+    RegistrationIndex:
+      type: object
+      description: The entry point for package metadata, shared by all packages on a source with the same package ID.
+      required:
+      - count
+      - items
+      properties:
+        count:
+          type: integer
+          description: The number of registration pages in the index.
+        items:
+          type: array
+          description: The array of registration pages.
+          items:
+            $ref: '#/components/schemas/RegistrationPageEntry'
     RegistrationLeafDocument:
       type: object
       description: A standalone registration leaf document for a specific package version.
@@ -118,6 +133,135 @@ components:
           type: string
           format: uri
           description: The URL to the registration index.
+    RegistrationLeaf:
+      type: object
+      description: A registration leaf representing data for a single package version within a page.
+      required:
+      - '@id'
+      - catalogEntry
+      - packageContent
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration leaf.
+        catalogEntry:
+          $ref: '#/components/schemas/CatalogEntry'
+        packageContent:
+          type: string
+          format: uri
+          description: The URL to the package content (.nupkg).
+    RegistrationPage:
+      type: object
+      description: A registration page fetched separately from the index.
+      required:
+      - '@id'
+      - count
+      - items
+      - lower
+      - parent
+      - upper
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration page.
+        count:
+          type: integer
+          description: The number of registration leaves in the page.
+        items:
+          type: array
+          description: The array of registration leaves.
+          items:
+            $ref: '#/components/schemas/RegistrationLeaf'
+        lower:
+          type: string
+          description: The lowest SemVer 2.0.0 version in the page (inclusive).
+        parent:
+          type: string
+          format: uri
+          description: The URL to the registration index.
+        upper:
+          type: string
+          description: The highest SemVer 2.0.0 version in the page (inclusive).
+    DependencyGroup:
+      type: object
+      description: A group of package dependencies applicable to a specific target framework.
+      properties:
+        targetFramework:
+          type: string
+          description: The target framework these dependencies are applicable to. If not specified, the group applies to all target frameworks.
+        dependencies:
+          type: array
+          description: The list of package dependencies.
+          items:
+            $ref: '#/components/schemas/Dependency'
+    Dependency:
+      type: object
+      description: A package dependency.
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The ID of the package dependency.
+        range:
+          type: string
+          description: The allowed version range of the dependency. Defaults to any version if absent.
+        registration:
+          type: string
+          format: uri
+          description: The URL to the registration index for this dependency.
+    RegistrationPageEntry:
+      type: object
+      description: A registration page entry within the index, covering a range of package versions.
+      required:
+      - '@id'
+      - count
+      - lower
+      - upper
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration page.
+        count:
+          type: integer
+          description: The number of registration leaves in the page.
+        items:
+          type: array
+          description: The array of registration leaves. Present when leaves are inlined into the index, absent when a separate request is needed.
+          items:
+            $ref: '#/components/schemas/RegistrationLeaf'
+        lower:
+          type: string
+          description: The lowest SemVer 2.0.0 version in the page (inclusive).
+        parent:
+          type: string
+          format: uri
+          description: The URL to the registration index. Only present when items are inlined.
+        upper:
+          type: string
+          description: The highest SemVer 2.0.0 version in the page (inclusive).
+    Vulnerability:
+      type: object
+      description: A security vulnerability associated with a package version.
+      required:
+      - advisoryUrl
+      - severity
+      properties:
+        advisoryUrl:
+          type: string
+          format: uri
+          description: Location of the security advisory for the package.
+        severity:
+          type: string
+          description: Severity of the advisory. 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
     CatalogEntry:
       type: object
       description: The catalog entry containing detailed package metadata for a specific version.
@@ -210,6 +354,18 @@ components:
           description: Security vulnerabilities associated with this package version.
           items:
             $ref: '#/components/schemas/Vulnerability'
+    AlternatePackage:
+      type: object
+      description: A recommended replacement for a deprecated package.
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The ID of the alternate package.
+        range:
+          type: string
+          description: The allowed version range, or * if any version is accepted.
     Deprecation:
       type: object
       description: Deprecation information for a package version.
@@ -230,162 +386,6 @@ components:
           description: Additional details about the deprecation.
         alternatePackage:
           $ref: '#/components/schemas/AlternatePackage'
-    RegistrationPage:
-      type: object
-      description: A registration page fetched separately from the index.
-      required:
-      - '@id'
-      - count
-      - items
-      - lower
-      - parent
-      - upper
-      properties:
-        '@id':
-          type: string
-          format: uri
-          description: The URL to the registration page.
-        count:
-          type: integer
-          description: The number of registration leaves in the page.
-        items:
-          type: array
-          description: The array of registration leaves.
-          items:
-            $ref: '#/components/schemas/RegistrationLeaf'
-        lower:
-          type: string
-          description: The lowest SemVer 2.0.0 version in the page (inclusive).
-        parent:
-          type: string
-          format: uri
-          description: The URL to the registration index.
-        upper:
-          type: string
-          description: The highest SemVer 2.0.0 version in the page (inclusive).
-    RegistrationPageEntry:
-      type: object
-      description: A registration page entry within the index, covering a range of package versions.
-      required:
-      - '@id'
-      - count
-      - lower
-      - upper
-      properties:
-        '@id':
-          type: string
-          format: uri
-          description: The URL to the registration page.
-        count:
-          type: integer
-          description: The number of registration leaves in the page.
-        items:
-          type: array
-          description: The array of registration leaves. Present when leaves are inlined into the index, absent when a separate request is needed.
-          items:
-            $ref: '#/components/schemas/RegistrationLeaf'
-        lower:
-          type: string
-          description: The lowest SemVer 2.0.0 version in the page (inclusive).
-        parent:
-          type: string
-          format: uri
-          description: The URL to the registration index. Only present when items are inlined.
-        upper:
-          type: string
-          description: The highest SemVer 2.0.0 version in the page (inclusive).
-    Dependency:
-      type: object
-      description: A package dependency.
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: The ID of the package dependency.
-        range:
-          type: string
-          description: The allowed version range of the dependency. Defaults to any version if absent.
-        registration:
-          type: string
-          format: uri
-          description: The URL to the registration index for this dependency.
-    RegistrationIndex:
-      type: object
-      description: The entry point for package metadata, shared by all packages on a source with the same package ID.
-      required:
-      - count
-      - items
-      properties:
-        count:
-          type: integer
-          description: The number of registration pages in the index.
-        items:
-          type: array
-          description: The array of registration pages.
-          items:
-            $ref: '#/components/schemas/RegistrationPageEntry'
-    Vulnerability:
-      type: object
-      description: A security vulnerability associated with a package version.
-      required:
-      - advisoryUrl
-      - severity
-      properties:
-        advisoryUrl:
-          type: string
-          format: uri
-          description: Location of the security advisory for the package.
-        severity:
-          type: string
-          description: Severity of the advisory. 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.
-          enum:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
-    DependencyGroup:
-      type: object
-      description: A group of package dependencies applicable to a specific target framework.
-      properties:
-        targetFramework:
-          type: string
-          description: The target framework these dependencies are applicable to. If not specified, the group applies to all target frameworks.
-        dependencies:
-          type: array
-          description: The list of package dependencies.
-          items:
-            $ref: '#/components/schemas/Dependency'
-    RegistrationLeaf:
-      type: object
-      description: A registration leaf representing data for a single package version within a page.
-      required:
-      - '@id'
-      - catalogEntry
-      - packageContent
-      properties:
-        '@id':
-          type: string
-          format: uri
-          description: The URL to the registration leaf.
-        catalogEntry:
-          $ref: '#/components/schemas/CatalogEntry'
-        packageContent:
-          type: string
-          format: uri
-          description: The URL to the package content (.nupkg).
-    AlternatePackage:
-      type: object
-      description: A recommended replacement for a deprecated package.
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: The ID of the alternate package.
-        range:
-          type: string
-          description: The allowed version range, or * if any version is accepted.
   parameters:
     LowerId:
       name: lowerId

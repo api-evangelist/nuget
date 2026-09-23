@@ -2,28 +2,38 @@
   "provider": "nuget",
   "sources": [
     "_original/nuget-package-metadata-api-openapi.yml",
-    "_original/nuget-server-api-openapi.yml"
+    "_original/nuget-server-api-openapi.yml",
+    "nuget-autocomplete-api-openapi.yml",
+    "nuget-flatcontainer-api-openapi.yml",
+    "nuget-query-api-openapi.yml",
+    "nuget-registration5-gz-semver2-api-openapi.yml"
   ],
   "outputs": [
     "nuget-registration-api-openapi.yml",
     "nuget-package-publish-api-openapi.yml",
-    "nuget-service-index-api-openapi.yml"
+    "nuget-service-index-api-openapi.yml",
+    "nuget-autocomplete-api-openapi.yml",
+    "nuget-flatcontainer-api-openapi.yml",
+    "nuget-query-api-openapi.yml",
+    "nuget-registration5-gz-semver2-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
+  "warnings": [
+    "nuget-autocomplete-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /autocomplete get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "nuget-flatcontainer-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /flatcontainer/{id}/index.json get, /flatcontainer/{id}/{version}/{id2}.nuspec get, /flatcontainer/{id}/{version}/{id2}.{version2}.nupkg get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "nuget-query-api-openapi.yml: previously refined output kept for 1 operation(s) no archived document covers (e.g. /query get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "nuget-registration5-gz-semver2-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /registration5-gz-semver2/{id}/index.json get, /registration5-gz-semver2/{id}/{version}.json get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
   "notes": [
     "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "nuget-package-metadata-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nuget-server-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0"
+    "nuget-server-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
-    "nuget-autocomplete-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "nuget-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "nuget-package-content-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuget-package-publish-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuget-registration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "nuget-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "nuget-service-index-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

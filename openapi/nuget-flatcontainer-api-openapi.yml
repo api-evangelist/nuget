@@ -83,6 +83,10 @@ paths:
       tags:
       - Flatcontainer
 components:
+  schemas:
+    GenericObject:
+      type: object
+      additionalProperties: true
   parameters:
     PackageId:
       in: path
@@ -90,10 +94,6 @@ components:
       required: true
       schema:
         type: string
-  schemas:
-    GenericObject:
-      type: object
-      additionalProperties: true
   securitySchemes:
     apiKeyAuth:
       type: apiKey

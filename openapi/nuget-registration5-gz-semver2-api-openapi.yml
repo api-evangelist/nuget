@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: NuGet Server API (V3) Autocomplete Registration5 Gz Semver2 API
+  title: NuGet Server API (V3) Autocomplete … Registration5 Gz…
   description: Minimal OpenAPI definition for the NuGet V3 HTTP protocol covering the service index, package content (PackageBaseAddress), package metadata (RegistrationsBaseUrl), search, autocomplete, and package publish.
   version: '3'
   x-generated-from: https://learn.microsoft.com/en-us/nuget/api/overview
@@ -47,6 +47,10 @@ paths:
       tags:
       - Registration5 Gz Semver2
 components:
+  schemas:
+    GenericObject:
+      type: object
+      additionalProperties: true
   parameters:
     PackageId:
       in: path
@@ -54,10 +58,6 @@ components:
       required: true
       schema:
         type: string
-  schemas:
-    GenericObject:
-      type: object
-      additionalProperties: true
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -100,13 +100,6 @@ paths:
           description: No package with the provided ID and version exists
 components:
   parameters:
-    PackageId:
-      name: id
-      in: path
-      required: true
-      description: The ID of the package.
-      schema:
-        type: string
     PackageVersion:
       name: version
       in: path
@@ -119,6 +112,13 @@ components:
       in: header
       required: false
       description: Required in certain cases on nuget.org to indicate protocol version.
+      schema:
+        type: string
+    PackageId:
+      name: id
+      in: path
+      required: true
+      description: The ID of the package.
       schema:
         type: string
   securitySchemes:
