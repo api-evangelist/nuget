@@ -107,18 +107,18 @@ components:
       description: The version of the package.
       schema:
         type: string
-    XNuGetProtocolVersion:
-      name: X-NuGet-Protocol-Version
-      in: header
-      required: false
-      description: Required in certain cases on nuget.org to indicate protocol version.
-      schema:
-        type: string
     PackageId:
       name: id
       in: path
       required: true
       description: The ID of the package.
+      schema:
+        type: string
+    XNuGetProtocolVersion:
+      name: X-NuGet-Protocol-Version
+      in: header
+      required: false
+      description: Required in certain cases on nuget.org to indicate protocol version.
       schema:
         type: string
   securitySchemes:

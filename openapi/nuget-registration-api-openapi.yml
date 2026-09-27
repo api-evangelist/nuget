@@ -89,68 +89,37 @@ paths:
           description: The requested package version does not exist
 components:
   schemas:
-    RegistrationIndex:
+    AlternatePackage:
       type: object
-      description: The entry point for package metadata, shared by all packages on a source with the same package ID.
+      description: A recommended replacement for a deprecated package.
       required:
-      - count
-      - items
+      - id
       properties:
-        count:
-          type: integer
-          description: The number of registration pages in the index.
-        items:
-          type: array
-          description: The array of registration pages.
-          items:
-            $ref: '#/components/schemas/RegistrationPageEntry'
-    RegistrationLeafDocument:
+        id:
+          type: string
+          description: The ID of the alternate package.
+        range:
+          type: string
+          description: The allowed version range, or * if any version is accepted.
+    Vulnerability:
       type: object
-      description: A standalone registration leaf document for a specific package version.
+      description: A security vulnerability associated with a package version.
       required:
-      - '@id'
+      - advisoryUrl
+      - severity
       properties:
-        '@id':
+        advisoryUrl:
           type: string
           format: uri
-          description: The URL to the registration leaf.
-        catalogEntry:
+          description: Location of the security advisory for the package.
+        severity:
           type: string
-          format: uri
-          description: The URL to the catalog entry that produced this leaf.
-        listed:
-          type: boolean
-          description: Whether the package is listed. Considered listed if absent.
-        packageContent:
-          type: string
-          format: uri
-          description: The URL to the package content (.nupkg).
-        published:
-          type: string
-          format: date-time
-          description: An ISO 8601 timestamp of when the package was published. Set to year 1900 on nuget.org when the package is unlisted.
-        registration:
-          type: string
-          format: uri
-          description: The URL to the registration index.
-    RegistrationLeaf:
-      type: object
-      description: A registration leaf representing data for a single package version within a page.
-      required:
-      - '@id'
-      - catalogEntry
-      - packageContent
-      properties:
-        '@id':
-          type: string
-          format: uri
-          description: The URL to the registration leaf.
-        catalogEntry:
-          $ref: '#/components/schemas/CatalogEntry'
-        packageContent:
-          type: string
-          format: uri
-          description: The URL to the package content (.nupkg).
+          description: Severity of the advisory. 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
     RegistrationPage:
       type: object
       description: A registration page fetched separately from the index.
@@ -184,34 +153,6 @@ components:
         upper:
           type: string
           description: The highest SemVer 2.0.0 version in the page (inclusive).
-    DependencyGroup:
-      type: object
-      description: A group of package dependencies applicable to a specific target framework.
-      properties:
-        targetFramework:
-          type: string
-          description: The target framework these dependencies are applicable to. If not specified, the group applies to all target frameworks.
-        dependencies:
-          type: array
-          description: The list of package dependencies.
-          items:
-            $ref: '#/components/schemas/Dependency'
-    Dependency:
-      type: object
-      description: A package dependency.
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: The ID of the package dependency.
-        range:
-          type: string
-          description: The allowed version range of the dependency. Defaults to any version if absent.
-        registration:
-          type: string
-          format: uri
-          description: The URL to the registration index for this dependency.
     RegistrationPageEntry:
       type: object
       description: A registration page entry within the index, covering a range of package versions.
@@ -243,25 +184,33 @@ components:
         upper:
           type: string
           description: The highest SemVer 2.0.0 version in the page (inclusive).
-    Vulnerability:
+    DependencyGroup:
       type: object
-      description: A security vulnerability associated with a package version.
-      required:
-      - advisoryUrl
-      - severity
+      description: A group of package dependencies applicable to a specific target framework.
       properties:
-        advisoryUrl:
+        targetFramework:
           type: string
-          format: uri
-          description: Location of the security advisory for the package.
-        severity:
-          type: string
-          description: Severity of the advisory. 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.
-          enum:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
+          description: The target framework these dependencies are applicable to. If not specified, the group applies to all target frameworks.
+        dependencies:
+          type: array
+          description: The list of package dependencies.
+          items:
+            $ref: '#/components/schemas/Dependency'
+    RegistrationIndex:
+      type: object
+      description: The entry point for package metadata, shared by all packages on a source with the same package ID.
+      required:
+      - count
+      - items
+      properties:
+        count:
+          type: integer
+          description: The number of registration pages in the index.
+        items:
+          type: array
+          description: The array of registration pages.
+          items:
+            $ref: '#/components/schemas/RegistrationPageEntry'
     CatalogEntry:
       type: object
       description: The catalog entry containing detailed package metadata for a specific version.
@@ -354,18 +303,69 @@ components:
           description: Security vulnerabilities associated with this package version.
           items:
             $ref: '#/components/schemas/Vulnerability'
-    AlternatePackage:
+    RegistrationLeafDocument:
       type: object
-      description: A recommended replacement for a deprecated package.
+      description: A standalone registration leaf document for a specific package version.
+      required:
+      - '@id'
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration leaf.
+        catalogEntry:
+          type: string
+          format: uri
+          description: The URL to the catalog entry that produced this leaf.
+        listed:
+          type: boolean
+          description: Whether the package is listed. Considered listed if absent.
+        packageContent:
+          type: string
+          format: uri
+          description: The URL to the package content (.nupkg).
+        published:
+          type: string
+          format: date-time
+          description: An ISO 8601 timestamp of when the package was published. Set to year 1900 on nuget.org when the package is unlisted.
+        registration:
+          type: string
+          format: uri
+          description: The URL to the registration index.
+    RegistrationLeaf:
+      type: object
+      description: A registration leaf representing data for a single package version within a page.
+      required:
+      - '@id'
+      - catalogEntry
+      - packageContent
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration leaf.
+        catalogEntry:
+          $ref: '#/components/schemas/CatalogEntry'
+        packageContent:
+          type: string
+          format: uri
+          description: The URL to the package content (.nupkg).
+    Dependency:
+      type: object
+      description: A package dependency.
       required:
       - id
       properties:
         id:
           type: string
-          description: The ID of the alternate package.
+          description: The ID of the package dependency.
         range:
           type: string
-          description: The allowed version range, or * if any version is accepted.
+          description: The allowed version range of the dependency. Defaults to any version if absent.
+        registration:
+          type: string
+          format: uri
+          description: The URL to the registration index for this dependency.
     Deprecation:
       type: object
       description: Deprecation information for a package version.
