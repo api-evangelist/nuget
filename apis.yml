@@ -162,6 +162,9 @@ apis:
   - type: Reference
     url: https://learn.microsoft.com/en-us/nuget/api/search-query-service-resource
 common:
+- type: CapabilityMap
+  url: capabilities/nuget-capability-edges.yml
+  name: NuGet Business Capability Map
 - type: GitHubOrganization
   url: https://github.com/NuGet
 - type: GettingStarted
