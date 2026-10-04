@@ -89,6 +89,102 @@ paths:
           description: The requested package version does not exist
 components:
   schemas:
+    Deprecation:
+      type: object
+      description: Deprecation information for a package version.
+      required:
+      - reasons
+      properties:
+        reasons:
+          type: array
+          description: The reasons why the package was deprecated. Values include Legacy, CriticalBugs, and Other.
+          items:
+            type: string
+            enum:
+            - Legacy
+            - CriticalBugs
+            - Other
+        message:
+          type: string
+          description: Additional details about the deprecation.
+        alternatePackage:
+          $ref: '#/components/schemas/AlternatePackage'
+    DependencyGroup:
+      type: object
+      description: A group of package dependencies applicable to a specific target framework.
+      properties:
+        targetFramework:
+          type: string
+          description: The target framework these dependencies are applicable to. If not specified, the group applies to all target frameworks.
+        dependencies:
+          type: array
+          description: The list of package dependencies.
+          items:
+            $ref: '#/components/schemas/Dependency'
+    Vulnerability:
+      type: object
+      description: A security vulnerability associated with a package version.
+      required:
+      - advisoryUrl
+      - severity
+      properties:
+        advisoryUrl:
+          type: string
+          format: uri
+          description: Location of the security advisory for the package.
+        severity:
+          type: string
+          description: Severity of the advisory. 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+    RegistrationPage:
+      type: object
+      description: A registration page fetched separately from the index.
+      required:
+      - '@id'
+      - count
+      - items
+      - lower
+      - parent
+      - upper
+      properties:
+        '@id':
+          type: string
+          format: uri
+          description: The URL to the registration page.
+        count:
+          type: integer
+          description: The number of registration leaves in the page.
+        items:
+          type: array
+          description: The array of registration leaves.
+          items:
+            $ref: '#/components/schemas/RegistrationLeaf'
+        lower:
+          type: string
+          description: The lowest SemVer 2.0.0 version in the page (inclusive).
+        parent:
+          type: string
+          format: uri
+          description: The URL to the registration index.
+        upper:
+          type: string
+          description: The highest SemVer 2.0.0 version in the page (inclusive).
+    AlternatePackage:
+      type: object
+      description: A recommended replacement for a deprecated package.
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The ID of the alternate package.
+        range:
+          type: string
+          description: The allowed version range, or * if any version is accepted.
     RegistrationPageEntry:
       type: object
       description: A registration page entry within the index, covering a range of package versions.
@@ -120,68 +216,6 @@ components:
         upper:
           type: string
           description: The highest SemVer 2.0.0 version in the page (inclusive).
-    RegistrationIndex:
-      type: object
-      description: The entry point for package metadata, shared by all packages on a source with the same package ID.
-      required:
-      - count
-      - items
-      properties:
-        count:
-          type: integer
-          description: The number of registration pages in the index.
-        items:
-          type: array
-          description: The array of registration pages.
-          items:
-            $ref: '#/components/schemas/RegistrationPageEntry'
-    Dependency:
-      type: object
-      description: A package dependency.
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: The ID of the package dependency.
-        range:
-          type: string
-          description: The allowed version range of the dependency. Defaults to any version if absent.
-        registration:
-          type: string
-          format: uri
-          description: The URL to the registration index for this dependency.
-    Vulnerability:
-      type: object
-      description: A security vulnerability associated with a package version.
-      required:
-      - advisoryUrl
-      - severity
-      properties:
-        advisoryUrl:
-          type: string
-          format: uri
-          description: Location of the security advisory for the package.
-        severity:
-          type: string
-          description: Severity of the advisory. 0 = Low, 1 = Moderate, 2 = High, 3 = Critical.
-          enum:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
-    DependencyGroup:
-      type: object
-      description: A group of package dependencies applicable to a specific target framework.
-      properties:
-        targetFramework:
-          type: string
-          description: The target framework these dependencies are applicable to. If not specified, the group applies to all target frameworks.
-        dependencies:
-          type: array
-          description: The list of package dependencies.
-          items:
-            $ref: '#/components/schemas/Dependency'
     CatalogEntry:
       type: object
       description: The catalog entry containing detailed package metadata for a specific version.
@@ -274,38 +308,6 @@ components:
           description: Security vulnerabilities associated with this package version.
           items:
             $ref: '#/components/schemas/Vulnerability'
-    AlternatePackage:
-      type: object
-      description: A recommended replacement for a deprecated package.
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: The ID of the alternate package.
-        range:
-          type: string
-          description: The allowed version range, or * if any version is accepted.
-    Deprecation:
-      type: object
-      description: Deprecation information for a package version.
-      required:
-      - reasons
-      properties:
-        reasons:
-          type: array
-          description: The reasons why the package was deprecated. Values include Legacy, CriticalBugs, and Other.
-          items:
-            type: string
-            enum:
-            - Legacy
-            - CriticalBugs
-            - Other
-        message:
-          type: string
-          description: Additional details about the deprecation.
-        alternatePackage:
-          $ref: '#/components/schemas/AlternatePackage'
     RegistrationLeafDocument:
       type: object
       description: A standalone registration leaf document for a specific package version.
@@ -335,6 +337,37 @@ components:
           type: string
           format: uri
           description: The URL to the registration index.
+    RegistrationIndex:
+      type: object
+      description: The entry point for package metadata, shared by all packages on a source with the same package ID.
+      required:
+      - count
+      - items
+      properties:
+        count:
+          type: integer
+          description: The number of registration pages in the index.
+        items:
+          type: array
+          description: The array of registration pages.
+          items:
+            $ref: '#/components/schemas/RegistrationPageEntry'
+    Dependency:
+      type: object
+      description: A package dependency.
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: The ID of the package dependency.
+        range:
+          type: string
+          description: The allowed version range of the dependency. Defaults to any version if absent.
+        registration:
+          type: string
+          format: uri
+          description: The URL to the registration index for this dependency.
     RegistrationLeaf:
       type: object
       description: A registration leaf representing data for a single package version within a page.
@@ -353,39 +386,6 @@ components:
           type: string
           format: uri
           description: The URL to the package content (.nupkg).
-    RegistrationPage:
-      type: object
-      description: A registration page fetched separately from the index.
-      required:
-      - '@id'
-      - count
-      - items
-      - lower
-      - parent
-      - upper
-      properties:
-        '@id':
-          type: string
-          format: uri
-          description: The URL to the registration page.
-        count:
-          type: integer
-          description: The number of registration leaves in the page.
-        items:
-          type: array
-          description: The array of registration leaves.
-          items:
-            $ref: '#/components/schemas/RegistrationLeaf'
-        lower:
-          type: string
-          description: The lowest SemVer 2.0.0 version in the page (inclusive).
-        parent:
-          type: string
-          format: uri
-          description: The URL to the registration index.
-        upper:
-          type: string
-          description: The highest SemVer 2.0.0 version in the page (inclusive).
   parameters:
     LowerId:
       name: lowerId
