@@ -128,10 +128,8 @@ apis:
 unitEconomics:
   - name: Restore time per CI build
     metric: ci_restore_seconds / ci_build_count
-    target: minimize via package cache
   - name: Egress per build
     metric: package_egress_bytes / ci_build_count
-    target: '< 100MB sustained via cache'
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
