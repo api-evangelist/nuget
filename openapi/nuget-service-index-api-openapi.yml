@@ -36,22 +36,6 @@ paths:
                 $ref: '#/components/schemas/ServiceIndex'
 components:
   schemas:
-    ServiceIndex:
-      type: object
-      description: The service index document that lists all available NuGet API resources.
-      required:
-      - version
-      - resources
-      properties:
-        version:
-          type: string
-          description: The schema version of the service index. The major version must be 3.
-          example: 3.0.0
-        resources:
-          type: array
-          description: The list of resources available on this package source.
-          items:
-            $ref: '#/components/schemas/ServiceIndexResource'
     ServiceIndexResource:
       type: object
       description: A resource available on the NuGet package source.
@@ -69,6 +53,22 @@ components:
         comment:
           type: string
           description: A human-readable description of the resource.
+    ServiceIndex:
+      type: object
+      description: The service index document that lists all available NuGet API resources.
+      required:
+      - version
+      - resources
+      properties:
+        version:
+          type: string
+          description: The schema version of the service index. The major version must be 3.
+          example: 3.0.0
+        resources:
+          type: array
+          description: The list of resources available on this package source.
+          items:
+            $ref: '#/components/schemas/ServiceIndexResource'
   securitySchemes:
     apiKey:
       type: apiKey
